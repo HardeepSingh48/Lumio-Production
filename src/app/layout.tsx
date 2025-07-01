@@ -4,8 +4,10 @@ import { Inter } from "next/font/google";
 
 import { ThemeProvider } from "@/providers/theme-provider";
 import "./globals.css";
+import ModalProvider from "@/providers/modal-provider";
+import { Toaster } from "@/components/ui/toaster";
 
-const font = DM_Sans({subsets: ["latin"]});
+const font = DM_Sans({ subsets: ["latin"] });
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,21 +32,26 @@ export default function RootLayout({
   return (
 
 
-      <html lang="en" suppressHydrationWarning>
-        <body
-          suppressHydrationWarning
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange >
+    <html lang="en" suppressHydrationWarning>
+      <body
+        suppressHydrationWarning
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange >
+          <ModalProvider>
+
 
             {children}
-          </ThemeProvider>
-        </body>
-      </html>
+            <Toaster />
+
+          </ModalProvider>
+        </ThemeProvider>
+      </body>
+    </html>
 
   );
 }

@@ -1,10 +1,15 @@
 import React from 'react'
 
-const Page = async ({ params }: { params: { agencyId: string } }) => {
-  // const { agencyId } = await params;
-  // console.log('agencyId:', agencyId);
+type Props = {
+  params: Promise<{ agencyId: string }>
+}
 
-  return <div>{params.agencyId}</div>;
+const Page = async ({ params }: Props) => {
+  const { agencyId } = await params; // Await params here
+
+  console.log('agencyId:', agencyId);
+
+  return <div>{agencyId}</div>;
 };
 
 export default Page;

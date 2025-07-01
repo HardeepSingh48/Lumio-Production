@@ -43,7 +43,7 @@ import { Switch } from '../ui/switch'
 import {
     deleteAgency,
     initUser,
-    saveActivityLogNotification,
+    saveActivityLogsNotification,
     updateAgencyDetails,
     updateUserAgency,
     upsertAgency,
@@ -99,6 +99,10 @@ const AgencyDetails = ({ data }: Props) => {
     const handleSubmit = async (values: z.infer<typeof FormSchema>) => {
         try {
             console.log('Form values on submit:', values);
+            console.log("Form field values:");
+            Object.entries(values).forEach(([key, value]) => {
+                console.log(`${key}:`, typeof value, value);
+            });
             let newUserData;
             let customerId;
             if (!data?.id) {
@@ -134,7 +138,7 @@ const AgencyDetails = ({ data }: Props) => {
             //WIP custId
             if (!data?.id) {
                 console.log('Submitting agency with:')
-                const createdAgency = await upsertAgency({
+                newUserData = await upsertAgency({
                     id: data?.id ? data.id : v4(),
                     address: values.address,
                     agencyLogo: values.agencyLogo,
@@ -151,16 +155,16 @@ const AgencyDetails = ({ data }: Props) => {
                     connectAccountId: '',
                     goal: 5,
                 });
-                console.log('createdAgency:', createdAgency)
+                console.log('createdAgency:', newUserData)
                 toast({
                     title: 'Created Agency',
                 })
 
 
-                if (createdAgency?.id) {
-                    await updateUserAgency(createdAgency.id)
-                    console.log('Updated user with agencyId:', createdAgency.id)
-                    router.push(`/agency/${createdAgency.id}`)
+                if (newUserData?.id) {
+                    await updateUserAgency(newUserData.id)
+                    console.log('Updated user with agencyId:', newUserData.id)
+                    router.push(`/agency/${newUserData.id}`)
                 } else {
                     console.log('No agency created, refreshing...')
                     router.refresh()
@@ -211,7 +215,7 @@ const AgencyDetails = ({ data }: Props) => {
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(handleSubmit)}
                             className='space-y-4'>
-                            <FormField disabled={isLoading} control={form.control}
+                            <FormField control={form.control}
                                 name="agencyLogo"
                                 render={({ field }) => (
 
@@ -219,32 +223,36 @@ const AgencyDetails = ({ data }: Props) => {
                                         <FormLabel>Agency Logo</FormLabel>
                                         <FormControl>
                                             <FileUpload
-                                                apiEndpoint='agencyLogo'
-                                                onChange={field.onChange}
-                                                value={field.value}
+                                                apiEndpoint="agencyLogo"
+                                                value={field.value ?? ''}
+                                                onChange={(val) => field.onChange(val ?? '')}
                                             />
-
                                         </FormControl>
+
                                         <FormMessage />
                                     </FormItem>
                                 )}
                             />
                             <div className='flex md:flex-row gap-4'>
-                                <FormField disabled={isLoading}
+                                <FormField
                                     control={form.control}
                                     name="name"
-                                    render={({ field }) => {
-                                        // console.log('name value:', field.value)
-                                        return (
-                                            <FormItem className='flex-1'>
-                                                <FormLabel>Agency Name</FormLabel>
-                                                <Input {...field} placeholder="Agency Name" />
-                                                <FormMessage />
-                                            </FormItem>
-                                        )
-                                    }}
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Agency Name</FormLabel>
+                                            <FormControl>
+                                                <Input
+                                                disabled={isLoading}
+                                                    placeholder="Agency Name"
+                                                    {...field}
+                                                    onChange={(e) => field.onChange(e.target.value ?? "")}
+                                                />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
                                 />
-                                <FormField disabled={isLoading}
+                                <FormField 
                                     control={form.control}
                                     name="companyEmail"
                                     render={({ field }) => {
@@ -253,7 +261,9 @@ const AgencyDetails = ({ data }: Props) => {
                                             <FormItem className='flex-1'>
                                                 <FormLabel>Agency Email</FormLabel>
                                                 <FormControl>
-                                                    <Input placeholder='Email'
+                                                    <Input
+                                                        disabled={isLoading}
+                                                    placeholder='Email'
                                                         {...field}
                                                     />
                                                 </FormControl>
@@ -267,7 +277,7 @@ const AgencyDetails = ({ data }: Props) => {
                             </div>
                             <div className="flex md:flex-row gap-4">
                                 <FormField
-                                    disabled={isLoading}
+                                    // disabled={isLoading}
                                     control={form.control}
                                     name="companyPhone"
                                     render={({ field }) => {
@@ -277,8 +287,10 @@ const AgencyDetails = ({ data }: Props) => {
                                                 <FormLabel>Agency Phone Number</FormLabel>
                                                 <FormControl>
                                                     <Input
+                                                    disabled={isLoading}
                                                         placeholder="Phone"
                                                         {...field}
+                                                        onChange={(e) => field.onChange(e.target.value ?? '')}
                                                     />
                                                 </FormControl>
                                                 <FormMessage />
@@ -290,7 +302,7 @@ const AgencyDetails = ({ data }: Props) => {
                             </div>
 
                             <FormField
-                                disabled={isLoading}
+                                // disabled={isLoading}
                                 control={form.control}
                                 name="whiteLabel"
                                 render={({ field }) => {
@@ -308,8 +320,8 @@ const AgencyDetails = ({ data }: Props) => {
 
                                             <FormControl>
                                                 <Switch
-                                                    checked={field.value}
-                                                    onCheckedChange={field.onChange}
+                                                    checked={field.value ?? false}
+                                                    onCheckedChange={(val) => field.onChange(val ?? false)}
                                                 />
                                             </FormControl>
                                             <FormMessage />
@@ -318,7 +330,7 @@ const AgencyDetails = ({ data }: Props) => {
                                 }}
                             />
                             <FormField
-                                disabled={isLoading}
+                                // disabled={isLoading}
                                 control={form.control}
                                 name="address"
                                 render={({ field }) => {
@@ -328,6 +340,7 @@ const AgencyDetails = ({ data }: Props) => {
                                             <FormLabel>Address</FormLabel>
                                             <FormControl>
                                                 <Input
+                                                disabled={isLoading}
                                                     placeholder="123 st..."
                                                     {...field}
                                                 />
@@ -340,7 +353,7 @@ const AgencyDetails = ({ data }: Props) => {
                             />
                             <div className="flex md:flex-row gap-4">
                                 <FormField
-                                    disabled={isLoading}
+                                    // disabled={isLoading}
                                     control={form.control}
                                     name="city"
                                     render={({ field }) => {
@@ -350,6 +363,7 @@ const AgencyDetails = ({ data }: Props) => {
                                                 <FormLabel>City</FormLabel>
                                                 <FormControl>
                                                     <Input
+                                                    disabled={isLoading}
                                                         placeholder="City"
                                                         {...field}
                                                     />
@@ -361,7 +375,7 @@ const AgencyDetails = ({ data }: Props) => {
                                     }
                                 />
                                 <FormField
-                                    disabled={isLoading}
+                                    // disabled={isLoading}
                                     control={form.control}
                                     name="state"
                                     render={({ field }) => {
@@ -371,6 +385,7 @@ const AgencyDetails = ({ data }: Props) => {
                                                 <FormLabel>State</FormLabel>
                                                 <FormControl>
                                                     <Input
+                                                    disabled={isLoading}
                                                         placeholder="State"
                                                         {...field}
                                                     />
@@ -382,7 +397,7 @@ const AgencyDetails = ({ data }: Props) => {
                                     }
                                 />
                                 <FormField
-                                    disabled={isLoading}
+                                    // disabled={isLoading}
                                     control={form.control}
                                     name="zipCode"
                                     render={({ field }) => {
@@ -392,6 +407,7 @@ const AgencyDetails = ({ data }: Props) => {
                                                 <FormLabel>Zipcpde</FormLabel>
                                                 <FormControl>
                                                     <Input
+                                                    disabled={isLoading}
                                                         placeholder="Zipcode"
                                                         {...field}
                                                     />
@@ -404,7 +420,7 @@ const AgencyDetails = ({ data }: Props) => {
                                 />
                             </div>
                             <FormField
-                                disabled={isLoading}
+                                // disabled={isLoading}
                                 control={form.control}
                                 name="country"
                                 render={({ field }) => {
@@ -414,6 +430,7 @@ const AgencyDetails = ({ data }: Props) => {
                                             <FormLabel>Country</FormLabel>
                                             <FormControl>
                                                 <Input
+                                                disabled={isLoading}
                                                     placeholder="Country"
                                                     {...field}
                                                 />
@@ -433,7 +450,7 @@ const AgencyDetails = ({ data }: Props) => {
                                         onValueChange={async (val: number) => {
                                             if (!data.id) return
                                             await updateAgencyDetails(data.id, { goal: val })
-                                            await saveActivityLogNotification({
+                                            await saveActivityLogsNotification({
                                                 agencyId: data.id,
                                                 description: `Updated the agency goal to | ${val} Sub Account`,
                                                 subaccountId: undefined
