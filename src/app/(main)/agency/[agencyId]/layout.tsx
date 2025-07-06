@@ -25,7 +25,7 @@ const layout = async ({ children, params }: Props) => {
     }
 
     if (user.privateMetadata.role !== 'AGENCY_OWNER' && user.privateMetadata.role !== 'AGENCY_ADMIN')
-        return <Unauthorized/>
+        return <Unauthorized />
 
     let allNoti: any = []
 
@@ -39,14 +39,15 @@ const layout = async ({ children, params }: Props) => {
                 id={agencyId}
                 type='agency'
             />
-            <div className='md:pl-[300px]'>
-                <InfoBar notifications={allNoti}/>
-                <div className='relative'>
-                    <BlurPage>
-                {children}
-                    </BlurPage>
+            <div className="md:pl-[300px]">
+                <InfoBar
+                    notifications={allNoti}
+                    role={allNoti.User?.role}
+                />
+                <div className="relative">
+                    <BlurPage>{children}</BlurPage>
                 </div>
-                </div>
+            </div>
         </div>
     )
 }

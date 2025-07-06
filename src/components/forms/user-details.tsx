@@ -331,7 +331,7 @@ const UserDetails = ({ id, type, subAccounts, userData }: Props) => {
                                         );
                                         return (
                                             <div key={subAccount.id}
-                                             className='flex flex-col items-cneter justify-between rounded-lg border p-4'>
+                                             className='flex items-cneter justify-between rounded-lg border p-4'>
                                                 <div>
                                                     <p>{subAccount.name}</p>
                                                 </div>
@@ -341,6 +341,7 @@ const UserDetails = ({ id, type, subAccounts, userData }: Props) => {
                                                     onCheckedChange={(permission) => {
                                                         onChangePermsission(subAccount.id,permission,subAccountPermissionsDetails?.id)
                                                     }}
+                                                    
                                                     ></Switch>
                                                 
                                             </div>
