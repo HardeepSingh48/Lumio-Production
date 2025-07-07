@@ -123,6 +123,7 @@ const TicketForm = ({ getNewTicket, laneId, subaccountId }: Props) => {
         },
         tags
       )
+      
 
       await saveActivityLogsNotification({
         agencyId: undefined,

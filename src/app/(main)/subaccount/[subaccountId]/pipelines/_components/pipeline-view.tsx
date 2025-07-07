@@ -133,9 +133,11 @@ const PipelineView = ({
         }
     }
 
+    
+
     return (
         <DragDropContext onDragEnd={onDragEnd}>
-            <div className="bg-white/60 dark:bg-background/60 rounded-xl p-4 use-automation-zoom-in">
+            <div className="bg-white/60 dark:bg-background/60 rounded-xl p-4 use-automation-zoom-in overflow-auto">
                 <div className="flex items-center justify-between">
                     <h1 className="text-2xl">{pipelineDetails?.name}</h1>
                     <Button

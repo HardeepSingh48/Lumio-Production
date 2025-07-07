@@ -7,6 +7,7 @@ import React from 'react'
 import PipelineInforbar from '../_components/pipelines-inforbar';
 import PipelineSettings from '../_components/pipeline-settings';
 import PipelineView from '../_components/pipeline-view';
+import { convertDecimals } from '@/utils/convertDecimals';
 
 type Props = {
     params: Promise<{ subaccountId: string; pipelineId: string }>
@@ -28,6 +29,9 @@ const PipelinePage = async ({ params }: Props) => {
     const lanes = (await getLanesWithTicketAndTags(
         resolvedParams.pipelineId
     )) as LaneDetail[]
+
+    const safeLanes = convertDecimals(lanes);
+    const safePipelineDetails = convertDecimals(pipelineDetails);
 
     return (
         <Tabs defaultValue='view'
@@ -51,10 +55,10 @@ const PipelinePage = async ({ params }: Props) => {
                 </div>
             </TabsList>
             <TabsContent value='view'>
-                <PipelineView 
-                    lanes={lanes}
-                    pipelineDetails={pipelineDetails}
-                    pipelineId={resolvedParams.pipelineId} 
+                <PipelineView
+                    lanes={safeLanes}
+                    pipelineDetails={safePipelineDetails}
+                    pipelineId={resolvedParams.pipelineId}
                     subaccountId={resolvedParams.subaccountId}
                     updateLanesOrder={updateLanesOrder}
                     updateTicketsOrder={updateTicketsOrder}

@@ -8,6 +8,7 @@ import { create } from "domain"
 import { v4 } from "uuid"
 import { CreateFunnelFormSchema, CreateMediaType } from "./types"
 import { z } from "zod"
+import { convertDecimals } from "@/utils/convertDecimals"
 
 export const getAuthUserDetails = async () => {
     const user = await currentUser()
@@ -782,7 +783,7 @@ export const upsertTicket = async (
         },
     })
 
-    return response
+    return convertDecimals(response)
 }
 
 export const DeleteTicket = async (ticketId:string) => {

@@ -63,13 +63,13 @@ const InfoBar = ({ notifications, subAccountId, className, role }: Props) => {
               <SheetHeader className="text-left">
                 <SheetTitle>Notifications</SheetTitle>
                 <SheetDescription>
+                </SheetDescription>
                   {(role === 'AGENCY_ADMIN' || role === 'AGENCY_OWNER') && (
                     <Card className="flex items-center justify-between p-4">
                       Current Subaccount
                       <Switch onCheckedChange={handleClick} />
                     </Card>
                   )}
-                </SheetDescription>
               </SheetHeader>
               {allNotifications?.map((notification) => (
                 <div
@@ -87,7 +87,7 @@ const InfoBar = ({ notifications, subAccountId, className, role }: Props) => {
                       </AvatarFallback>
                     </Avatar>
                     <div className="flex flex-col">
-                      <p>
+                      <div>
                         <span className="font-bold">
                           {notification.notification.split('|')[0]}
                         </span>
@@ -97,7 +97,7 @@ const InfoBar = ({ notifications, subAccountId, className, role }: Props) => {
                         <span className="font-bold">
                           {notification.notification.split('|')[2]}
                         </span>
-                      </p>
+                      </div>
                       <small className="text-xs text-muted-foreground">
                         {new Date(notification.createdAt).toLocaleDateString()}
                       </small>

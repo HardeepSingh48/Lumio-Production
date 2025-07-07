@@ -1,19 +1,19 @@
-// utils/convertDecimals.ts
-import { Decimal } from '@prisma/client/runtime/library'
+import { Decimal } from '@prisma/client/runtime/library';
 
 export function convertDecimals(obj: any): any {
   if (Array.isArray(obj)) {
-    return obj.map(convertDecimals)
+    return obj.map(convertDecimals);
   } else if (obj && typeof obj === 'object') {
-    const newObj: any = {}
+    const newObj: any = {};
     for (const key in obj) {
-      if (obj[key] && typeof obj[key] === 'object' && 'toNumber' in obj[key]) {
-        newObj[key] = obj[key].toNumber()
+      const value = obj[key];
+      if (value instanceof Decimal) {
+        newObj[key] = value.toNumber();
       } else {
-        newObj[key] = convertDecimals(obj[key])
+        newObj[key] = convertDecimals(value);
       }
     }
-    return newObj
+    return newObj;
   }
-  return obj
+  return obj;
 }
