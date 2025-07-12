@@ -103,8 +103,8 @@ const AgencyDetails = ({ data }: Props) => {
             Object.entries(values).forEach(([key, value]) => {
                 console.log(`${key}:`, typeof value, value);
             });
-            let newUserData;
-            let customerId;
+            // let newUserData;
+            let custId;
             if (!data?.id) {
                 const bodyData = {
                     email: values.companyEmail,
@@ -127,6 +127,16 @@ const AgencyDetails = ({ data }: Props) => {
                         state: values.zipCode,
                     },
                 }
+                const customerResponse = await fetch('/api/stripe/create-customer', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(bodyData),
+                })
+                const customerData: { customerId: string } =
+                    await customerResponse.json()
+                custId = customerData.customerId
             }
 
             await initUser({
@@ -136,11 +146,14 @@ const AgencyDetails = ({ data }: Props) => {
                 role: 'AGENCY_OWNER'
             })
             //WIP custId
-            if (!data?.id) {
+            if (!data?.customerId && !custId) return
+            
+            
                 console.log('Submitting agency with:')
-                newUserData = await upsertAgency({
+                const response = await upsertAgency({
                     id: data?.id ? data.id : v4(),
                     address: values.address,
+                    customerId: data?.customerId || custId || '', //WIP Change customer
                     agencyLogo: values.agencyLogo,
                     city: values.city,
                     companyPhone: values.companyPhone,
@@ -155,22 +168,25 @@ const AgencyDetails = ({ data }: Props) => {
                     connectAccountId: '',
                     goal: 5,
                 });
-                console.log('createdAgency:', newUserData)
+                console.log('createdAgency:', response)
                 toast({
                     title: 'Created Agency',
                 })
-
-
-                if (newUserData?.id) {
-                    await updateUserAgency(newUserData.id)
-                    console.log('Updated user with agencyId:', newUserData.id)
-                    router.push(`/agency/${newUserData.id}`)
-                } else {
-                    console.log('No agency created, refreshing...')
-                    router.refresh()
+                if(data?.id) return router.refresh()
+                if(response){
+                    return router.refresh()
                 }
-                return
-            }
+
+                // if (newUserData?.id) {
+                //     await updateUserAgency(newUserData.id)
+                //     console.log('Updated user with agencyId:', newUserData.id)
+                //     router.push(`/agency/${newUserData.id}`)
+                // } else {
+                //     console.log('No agency created, refreshing...')
+                //     router.refresh()
+                // }
+                // return
+            
         } catch (error) {
             console.log(error)
             toast({
@@ -242,7 +258,7 @@ const AgencyDetails = ({ data }: Props) => {
                                             <FormLabel>Agency Name</FormLabel>
                                             <FormControl>
                                                 <Input
-                                                disabled={isLoading}
+                                                    disabled={isLoading}
                                                     placeholder="Agency Name"
                                                     {...field}
                                                     onChange={(e) => field.onChange(e.target.value ?? "")}
@@ -252,7 +268,7 @@ const AgencyDetails = ({ data }: Props) => {
                                         </FormItem>
                                     )}
                                 />
-                                <FormField 
+                                <FormField
                                     control={form.control}
                                     name="companyEmail"
                                     render={({ field }) => {
@@ -263,7 +279,7 @@ const AgencyDetails = ({ data }: Props) => {
                                                 <FormControl>
                                                     <Input
                                                         disabled={isLoading}
-                                                    placeholder='Email'
+                                                        placeholder='Email'
                                                         {...field}
                                                     />
                                                 </FormControl>
@@ -287,7 +303,7 @@ const AgencyDetails = ({ data }: Props) => {
                                                 <FormLabel>Agency Phone Number</FormLabel>
                                                 <FormControl>
                                                     <Input
-                                                    disabled={isLoading}
+                                                        disabled={isLoading}
                                                         placeholder="Phone"
                                                         {...field}
                                                         onChange={(e) => field.onChange(e.target.value ?? '')}
@@ -340,7 +356,7 @@ const AgencyDetails = ({ data }: Props) => {
                                             <FormLabel>Address</FormLabel>
                                             <FormControl>
                                                 <Input
-                                                disabled={isLoading}
+                                                    disabled={isLoading}
                                                     placeholder="123 st..."
                                                     {...field}
                                                 />
@@ -363,7 +379,7 @@ const AgencyDetails = ({ data }: Props) => {
                                                 <FormLabel>City</FormLabel>
                                                 <FormControl>
                                                     <Input
-                                                    disabled={isLoading}
+                                                        disabled={isLoading}
                                                         placeholder="City"
                                                         {...field}
                                                     />
@@ -385,7 +401,7 @@ const AgencyDetails = ({ data }: Props) => {
                                                 <FormLabel>State</FormLabel>
                                                 <FormControl>
                                                     <Input
-                                                    disabled={isLoading}
+                                                        disabled={isLoading}
                                                         placeholder="State"
                                                         {...field}
                                                     />
@@ -407,7 +423,7 @@ const AgencyDetails = ({ data }: Props) => {
                                                 <FormLabel>Zipcpde</FormLabel>
                                                 <FormControl>
                                                     <Input
-                                                    disabled={isLoading}
+                                                        disabled={isLoading}
                                                         placeholder="Zipcode"
                                                         {...field}
                                                     />
@@ -430,7 +446,7 @@ const AgencyDetails = ({ data }: Props) => {
                                             <FormLabel>Country</FormLabel>
                                             <FormControl>
                                                 <Input
-                                                disabled={isLoading}
+                                                    disabled={isLoading}
                                                     placeholder="Country"
                                                     {...field}
                                                 />

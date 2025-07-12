@@ -142,3 +142,12 @@ h1.plura-gradient {
 .dark h1.plura-gradient {
   background-image: linear-gradient(to right, #1e40af, #fff) !important;
 }
+
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, and Opera */
+}
