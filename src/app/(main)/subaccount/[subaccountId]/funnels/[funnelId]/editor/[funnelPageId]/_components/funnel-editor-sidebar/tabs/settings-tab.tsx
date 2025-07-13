@@ -65,6 +65,19 @@ const SettingsTab = (props: Props) => {
   const handleChangeCustomValues = (e: any) => {
     const settingProperty = e.target.id
     let value = e.target.value
+
+    // Handle YouTube watch?v=... to embed conversion
+    if (settingProperty === 'src') {
+      const watchPattern = /(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([^&]+)/;
+      const shortPattern = /(?:https?:\/\/)?youtu\.be\/([^?&]+)/;
+      let match = value.match(watchPattern) || value.match(shortPattern);
+
+      if (match) {
+        const videoId = match[1]
+        value = `https://www.youtube.com/embed/${videoId}`
+      }
+    }
+
     const styleObject = {
       [settingProperty]: value,
     }
@@ -86,7 +99,7 @@ const SettingsTab = (props: Props) => {
   return (
     <Accordion
       type="multiple"
-      className="w-full "
+      className="w-full"
       defaultValue={['Typography', 'Dimensions', 'Decorations', 'Flexbox']}
     >
       <AccordionItem
@@ -104,6 +117,18 @@ const SettingsTab = (props: Props) => {
                   placeholder="https:domain.example.com/pathname"
                   onChange={handleChangeCustomValues}
                   value={state.editor.selectedElement.content.href}
+                />
+              </div>
+            )}
+          {state.editor.selectedElement.type === 'video' &&
+            !Array.isArray(state.editor.selectedElement.content) && (
+              <div className="flex flex-col gap-2">
+                <p className="text-muted-foreground">Video Link Path</p>
+                <Input
+                  id="src"
+                  placeholder="https:youtube.com/pathname"
+                  onChange={handleChangeCustomValues}
+                  value={state.editor.selectedElement.content.src}
                 />
               </div>
             )}
@@ -349,13 +374,13 @@ const SettingsTab = (props: Props) => {
             <div className="flex items-center justify-end">
               <small className="p-2">
                 {typeof state.editor.selectedElement.styles?.opacity ===
-                'number'
+                  'number'
                   ? state.editor.selectedElement.styles?.opacity
                   : parseFloat(
-                      (
-                        state.editor.selectedElement.styles?.opacity || '0'
-                      ).replace('%', '')
-                    ) || 0}
+                    (
+                      state.editor.selectedElement.styles?.opacity || '0'
+                    ).replace('%', '')
+                  ) || 0}
                 %
               </small>
             </div>
@@ -372,10 +397,10 @@ const SettingsTab = (props: Props) => {
                 typeof state.editor.selectedElement.styles?.opacity === 'number'
                   ? state.editor.selectedElement.styles?.opacity
                   : parseFloat(
-                      (
-                        state.editor.selectedElement.styles?.opacity || '0'
-                      ).replace('%', '')
-                    ) || 0,
+                    (
+                      state.editor.selectedElement.styles?.opacity || '0'
+                    ).replace('%', '')
+                  ) || 0,
               ]}
               max={100}
               step={1}
@@ -386,13 +411,13 @@ const SettingsTab = (props: Props) => {
             <div className="flex items-center justify-end">
               <small className="">
                 {typeof state.editor.selectedElement.styles?.borderRadius ===
-                'number'
+                  'number'
                   ? state.editor.selectedElement.styles?.borderRadius
                   : parseFloat(
-                      (
-                        state.editor.selectedElement.styles?.borderRadius || '0'
-                      ).replace('px', '')
-                    ) || 0}
+                    (
+                      state.editor.selectedElement.styles?.borderRadius || '0'
+                    ).replace('px', '')
+                  ) || 0}
                 px
               </small>
             </div>
@@ -407,13 +432,13 @@ const SettingsTab = (props: Props) => {
               }}
               defaultValue={[
                 typeof state.editor.selectedElement.styles?.borderRadius ===
-                'number'
+                  'number'
                   ? state.editor.selectedElement.styles?.borderRadius
                   : parseFloat(
-                      (
-                        state.editor.selectedElement.styles?.borderRadius || '0'
-                      ).replace('%', '')
-                    ) || 0,
+                    (
+                      state.editor.selectedElement.styles?.borderRadius || '0'
+                    ).replace('%', '')
+                  ) || 0,
               ]}
               max={100}
               step={1}
@@ -500,7 +525,7 @@ const SettingsTab = (props: Props) => {
       >
         <AccordionTrigger className="!no-underline">Flexbox</AccordionTrigger>
         <AccordionContent>
-          <Label className="text-muted-foreground p-2">Justify Content</Label>
+          <Label className="text-muted-foreground">Justify Content</Label>
           <Tabs
             onValueChange={(e) =>
               handleOnChanges({
@@ -545,7 +570,7 @@ const SettingsTab = (props: Props) => {
               </TabsTrigger>
             </TabsList>
           </Tabs>
-          <Label className="text-muted-foreground p-2">Align Items</Label>
+          <Label className="text-muted-foreground">Align Items</Label>
           <Tabs
             onValueChange={(e) =>
               handleOnChanges({
@@ -572,7 +597,7 @@ const SettingsTab = (props: Props) => {
               </TabsTrigger>
             </TabsList>
           </Tabs>
-          <div className="flex items-center gap-2 p-3">
+          <div className="flex items-center gap-2">
             <Input
               className="h-4 w-4"
               placeholder="px"
@@ -590,7 +615,7 @@ const SettingsTab = (props: Props) => {
             <Label className="text-muted-foreground">Flex</Label>
           </div>
           <div>
-            <Label className="text-muted-foreground p-2"> Direction</Label>
+            <Label className="text-muted-foreground"> Direction</Label>
             <Input
               placeholder="px"
               id="flexDirection"

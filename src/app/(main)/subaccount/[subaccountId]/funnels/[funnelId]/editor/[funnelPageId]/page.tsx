@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation'
 import React from 'react'
 import FunnelEditorNavigation from './_components/funnel-editor-navigation'
 import FunnelEditorSidebar from './_components/funnel-editor-sidebar'
+import FunnelEditor from './_components/funnel-editor'
 
 type Props = {
     params: Promise<{
@@ -40,6 +41,9 @@ const Page = async ({params}: Props) => {
                 funnelPageDetails={funnelPageDetails}
                 subaccountId={resolvedParams.subaccountId}
             />
+            <div className="h-full flex justify-center">
+                <FunnelEditor funnelPageId={resolvedParams.subaccountId} />
+            </div>
             
             <FunnelEditorSidebar
                 subaccountId={resolvedParams.subaccountId}
