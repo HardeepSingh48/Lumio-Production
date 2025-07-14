@@ -6,11 +6,11 @@ import { redirect } from 'next/navigation'
 import React from 'react'
 
 type Props = {
-  searchParams: { plan?: string; state?: string,code?: string }
+  searchParams: Promise<{ plan?: string; state?: string,code?: string }>
 }
 
 const Page = async ({ searchParams }: Props) => {
-  const params =  searchParams
+  const params = await searchParams
   const agencyId = await verifyAndAcceptInvitation()
   // console.log("AgencyId:",agencyId)
 

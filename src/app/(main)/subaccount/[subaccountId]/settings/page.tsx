@@ -6,11 +6,11 @@ import { currentUser } from '@clerk/nextjs/server'
 import React from 'react'
 
 type Props = {
-    params: { subaccountId: string}
+    params: Promise<{ subaccountId: string}>
 }
 
 const SubaccountSettingPage = async ({params}: Props) => {
-
+    const resolvedParams = await params
     const authUser = await currentUser()
 
     if(!authUser) return
@@ -22,7 +22,7 @@ const SubaccountSettingPage = async ({params}: Props) => {
     if(!userDetails) return
 
     const subAccount = await db.subAccount.findUnique({
-        where: { id: params.subaccountId},
+        where: { id: resolvedParams.subaccountId},
     })
     if(!subAccount) return 
 
@@ -47,7 +47,7 @@ const SubaccountSettingPage = async ({params}: Props) => {
                 
             <UserDetails
                 type='subaccount'
-                id={params.subaccountId}
+                id={resolvedParams.subaccountId}
                 subAccounts={subAccounts}
                 userData={userDetails}
                 />

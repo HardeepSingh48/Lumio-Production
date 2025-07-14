@@ -9,11 +9,11 @@ import React from 'react'
 
 type Props = {
     children: React.ReactNode
-    params: { agencyId: string } // <-- Make params a Promise
+    params: Promise<{ agencyId: string }> // <-- Make params a Promise
 }
 
 const layout = async ({ children, params }: Props) => {
-    const { agencyId } = params; // <-- Await params here
+    const { agencyId } = await params; // <-- Await params here
     const user = await currentUser()
     const verifiedAgencyId = await verifyAndAcceptInvitation()
 

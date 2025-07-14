@@ -24,12 +24,14 @@ import Link from 'next/link'
 import React from 'react'
 
 type PageProps = {
-  params: { agencyId: string }
-  searchParams?: { code?: string }
+  params: Promise<{ agencyId: string }>
+  searchParams?: Promise<{ code?: string }>
 }
 
 
 const Page = async ({ params }: PageProps) => {
+  const resolvedParams = await params
+
   let currency = 'USD'
   let sessions
   let totalClosedSessions
@@ -43,7 +45,7 @@ const Page = async ({ params }: PageProps) => {
 
   const agencyDetails = await db.agency.findUnique({
     where: {
-      id: params.agencyId,
+      id: resolvedParams.agencyId,
     },
   })
 
@@ -51,7 +53,7 @@ const Page = async ({ params }: PageProps) => {
 
   const subaccounts = await db.subAccount.findMany({
     where: {
-      agencyId: params.agencyId,
+      agencyId: resolvedParams.agencyId,
     },
   })
 

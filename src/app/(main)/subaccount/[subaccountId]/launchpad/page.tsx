@@ -16,18 +16,19 @@ import Link from 'next/link'
 import React from 'react'
 
 type Props = {
-  searchParams: {
+  searchParams: Promise<{
     state: string
     code: string
-  }
-  params: { subaccountId: string }
+  }>
+  params: Promise<{ subaccountId: string }>
 }
 
 const LaunchPad = async ({ params, searchParams }: Props) => {
-
+  const resolvedSearchParams = await searchParams
+  const resolvedParams = await params
   const subaccountDetails = await db.subAccount.findUnique({
     where: {
-      id: params.subaccountId,
+      id: resolvedParams.subaccountId,
     },
   })
 
@@ -52,15 +53,15 @@ const LaunchPad = async ({ params, searchParams }: Props) => {
 
   let connectedStripeAccount = false
 
-  if (searchParams.code) {
+  if (resolvedSearchParams.code) {
     if (!subaccountDetails.connectAccountId) {
       try {
         const response = await stripe.oauth.token({
           grant_type: 'authorization_code',
-          code: searchParams.code,
+          code: resolvedSearchParams.code,
         })
         await db.subAccount.update({
-          where: { id: params.subaccountId },
+          where: { id: resolvedParams.subaccountId },
           data: { connectAccountId: response.stripe_user_id },
         })
         connectedStripeAccount = true

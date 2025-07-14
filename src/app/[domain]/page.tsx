@@ -5,13 +5,13 @@ import React from 'react'
 import FunnelEditor from '../(main)/subaccount/[subaccountId]/funnels/[funnelId]/editor/[funnelPageId]/_components/funnel-editor'
 import { db } from '@/lib/db'
 
-const page = async ({params}: {params: { domain: string}}) => {
-
+const page = async ({params}: {params: Promise<{ domain: string}>}) => {
+  const resolvedParams = await params
 
   //This was the original code
-  // const domainData = await getDomainContent(params.domain.slice(0,-1)) 
+  // const domainData = await getDomainContent(resolvedParams.domain.slice(0,-1)) 
 
-  const domainData = await getDomainContent(params.domain)
+  const domainData = await getDomainContent(resolvedParams.domain)
   if(!domainData) return notFound()
 
   const pageData = domainData.FunnelPages.find((page) => !page.pathName)

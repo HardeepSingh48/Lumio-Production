@@ -30,7 +30,7 @@ type ModalContextType = {
 export const ModalContext = createContext<ModalContextType>({
     data: {},
     isOpen: false,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
    setOpen: () => {},
     setClose: () => { },
 })
