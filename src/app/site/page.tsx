@@ -4,8 +4,13 @@ import { pricingCards } from "@/lib/constants";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import clsx from "clsx";
 import Link from "next/link";
+import { stripe } from "@/lib/stripe";
 
-export default function Home() {
+export default async function Home() {
+  const prices = await stripe.prices.list({
+    product: process.env.NEXT_PLURA_PRODUCT_ID,
+    active: true,
+  })
   return (
     <>
 

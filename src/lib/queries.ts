@@ -600,7 +600,7 @@ export const upsertFunnel = async (
             ...funnel,
             id: funnelId || v4(),
             subAccountId: subaccountId,
-        }
+        },
     })
 
     return response
@@ -787,9 +787,9 @@ export const upsertTicket = async (
     return convertDecimals(response)
 }
 
-export const DeleteTicket = async (ticketId:string) => {
+export const DeleteTicket = async (ticketId: string) => {
     const response = await db.ticket.delete({
-        where: {id:ticketId}
+        where: { id: ticketId }
     })
 
     return response
@@ -797,55 +797,55 @@ export const DeleteTicket = async (ticketId:string) => {
 }
 
 export const upsertTag = async (
-  subaccountId: string,
-  tag: Prisma.TagUncheckedCreateInput
+    subaccountId: string,
+    tag: Prisma.TagUncheckedCreateInput
 ) => {
-  const response = await db.tag.upsert({
-    where: { id: tag.id || v4(), subAccountId: subaccountId },
-    update: tag,
-    create: { ...tag, subAccountId: subaccountId },
-  })
+    const response = await db.tag.upsert({
+        where: { id: tag.id || v4(), subAccountId: subaccountId },
+        update: tag,
+        create: { ...tag, subAccountId: subaccountId },
+    })
 
-  return response
+    return response
 }
 
 export const deleteTag = async (tagId: string) => {
-  const response = await db.tag.delete({ where: { id: tagId } })
-  return response
+    const response = await db.tag.delete({ where: { id: tagId } })
+    return response
 }
 
 export const getTagsForSubaccount = async (subaccountId: string) => {
-  const response = await db.subAccount.findUnique({
-    where: { id: subaccountId },
-    select: { Tags: true },
-  })
-  return response
+    const response = await db.subAccount.findUnique({
+        where: { id: subaccountId },
+        select: { Tags: true },
+    })
+    return response
 }
 
 export const upsertContact = async (
-  contact: Prisma.ContactUncheckedCreateInput
+    contact: Prisma.ContactUncheckedCreateInput
 ) => {
-  const response = await db.contact.upsert({
-    where: { id: contact.id || v4() },
-    update: contact,
-    create: contact,
-  })
-  return response
+    const response = await db.contact.upsert({
+        where: { id: contact.id || v4() },
+        update: contact,
+        create: contact,
+    })
+    return response
 }
 
 export const getFunnels = async (subaccountId: string) => {
     const funnels = await db.funnel.findMany({
-        where: { subAccountId: subaccountId},
-        include: { FunnelPages: true},
+        where: { subAccountId: subaccountId },
+        include: { FunnelPages: true },
     });
     return funnels
 }
 
-export const getFunnel = async(funnelId: string) => {
+export const getFunnel = async (funnelId: string) => {
     const funnel = await db.funnel.findUnique({
-        where: {id: funnelId},
+        where: { id: funnelId },
         include: {
-            FunnelPages:{
+            FunnelPages: {
                 orderBy: {
                     order: 'asc',
                 }
@@ -856,58 +856,80 @@ export const getFunnel = async(funnelId: string) => {
 }
 
 export const updateFunnelProducts = async (
-  products: string,
-  funnelId: string
+    products: string,
+    funnelId: string
 ) => {
-  const data = await db.funnel.update({
-    where: { id: funnelId },
-    data: { liveProducts: products },
-  })
-  return data
+    const data = await db.funnel.update({
+        where: { id: funnelId },
+        data: { liveProducts: products },
+    })
+    return data
 }
 
 export const upsertFunnelPage = async (
-  subaccountId: string,
-  funnelPage: UpsertFunnelPage,
-  funnelId: string
+    subaccountId: string,
+    funnelPage: UpsertFunnelPage,
+    funnelId: string
 ) => {
-  if (!subaccountId || !funnelId) return
-  const response = await db.funnelPage.upsert({
-    where: { id: funnelPage.id || '' },
-    update: { ...funnelPage },
-    create: {
-      ...funnelPage,
-      content: funnelPage.content
-        ? funnelPage.content
-        : JSON.stringify([
-            {
-              content: [],
-              id: '__body',
-              name: 'Body',
-              styles: { backgroundColor: 'white' },
-              type: '__body',
-            },
-          ]),
-      funnelId,
-    },
-  })
+    if (!subaccountId || !funnelId) return
+    const response = await db.funnelPage.upsert({
+        where: { id: funnelPage.id || '' },
+        update: { ...funnelPage },
+        create: {
+            ...funnelPage,
+            content: funnelPage.content
+                ? funnelPage.content
+                : JSON.stringify([
+                    {
+                        content: [],
+                        id: '__body',
+                        name: 'Body',
+                        styles: { backgroundColor: 'white' },
+                        type: '__body',
+                    },
+                ]),
+            funnelId,
+        },
+    })
 
-  revalidatePath(`/subaccount/${subaccountId}/funnels/${funnelId}`, 'page')
-  return response
+    revalidatePath(`/subaccount/${subaccountId}/funnels/${funnelId}`, 'page')
+    return response
 }
 
 export const deleteFunnelePage = async (funnelPageId: string) => {
-  const response = await db.funnelPage.delete({ where: { id: funnelPageId } })
+    const response = await db.funnelPage.delete({ where: { id: funnelPageId } })
 
-  return response
+    return response
 }
 
 export const getFunnelPageDetails = async (funnelPageId: string) => {
-  const response = await db.funnelPage.findUnique({
+    const response = await db.funnelPage.findUnique({
+        where: {
+            id: funnelPageId,
+        },
+    })
+
+    return response
+}
+
+export const getDomainContent = async (subDomainName: string) => {
+  const response = await db.funnel.findUnique({
     where: {
-      id: funnelPageId,
+      subDomainName,
+    },
+    include: { FunnelPages: true },
+  })
+  return response
+}
+
+export const getPipelines = async (subaccountId: string) => {
+  const response = await db.pipeline.findMany({
+    where: { subAccountId: subaccountId },
+    include: {
+      Lane: {
+        include: { Tickets: true },
+      },
     },
   })
-
   return response
 }

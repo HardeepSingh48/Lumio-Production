@@ -82,7 +82,8 @@ const AllSubaccountsPage = async ({ params }: Props) => {
                                                     Cancel
                                                 </AlertDialogCancel>
                                                 <AlertDialogAction className='bg-destructive hover:bg-destructive'>
-                                                    <DeleteButton subaccountId={subaccount.id}></DeleteButton>
+                                                    
+                                                    <DeleteButton subaccountId={subaccount.id}/>
                                                 </AlertDialogAction>
                                             </AlertDialogFooter>
                                         </AlertDialogContent>

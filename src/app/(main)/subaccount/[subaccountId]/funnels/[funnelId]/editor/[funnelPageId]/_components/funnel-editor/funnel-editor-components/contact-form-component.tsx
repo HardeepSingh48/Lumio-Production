@@ -45,7 +45,7 @@ const ContactFormComponent = (props: Props) => {
   const styles = props.element.styles
 
   const goToNextPage = async () => {
-    if (!state.editor.liveMode) return
+    if (!state.editor.liveMode && !state.editor.previewMode) return
     const funnelPages = await getFunnel(funnelId)
     if (!funnelPages || !pageDetails) return
     if (funnelPages.FunnelPages.length > pageDetails.order + 1) {
