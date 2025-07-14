@@ -27,7 +27,7 @@ const Page = async ({
   params,
 }: {
   params: { agencyId: string }
-  searchParams: { code: string }
+  searchParams?: { code?: string }
 }) => {
   let currency = 'USD'
   let sessions
