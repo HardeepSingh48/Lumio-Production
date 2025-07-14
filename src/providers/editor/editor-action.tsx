@@ -29,7 +29,7 @@ export type EditorAction =
               id: ''
               content: []
               name: ''
-              styles: {}
+              styles: object
               type: null
             }
       }

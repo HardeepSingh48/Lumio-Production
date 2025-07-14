@@ -2,7 +2,7 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Switch } from '@/components/ui/switch'
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import {
   Tooltip,
   TooltipContent,
@@ -108,6 +108,7 @@ const FunnelEditorNavigation = ({
         description: 'Saved Editor',
       })
     } catch (error) {
+      console.error(error)
       toast('Oppse!', {
         description: 'Could not save editor',
       })

@@ -1,5 +1,5 @@
 'use client'
-import React, { ChangeEventHandler } from 'react'
+import React from 'react'
 import {
   Accordion,
   AccordionContent,
@@ -36,14 +36,14 @@ import {
 import { useEditor } from '@/providers/editor/editor-provider'
 import { Slider } from '@/components/ui/slider'
 
-type Props = {}
 
-const SettingsTab = (props: Props) => {
+
+const SettingsTab = () => {
   const { state, dispatch } = useEditor()
 
   const handleOnChanges = (e: any) => {
     const styleSettings = e.target.id
-    let value = e.target.value
+    const value = e.target.value
     const styleObject = {
       [styleSettings]: value,
     }
@@ -70,7 +70,7 @@ const SettingsTab = (props: Props) => {
     if (settingProperty === 'src') {
       const watchPattern = /(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([^&]+)/;
       const shortPattern = /(?:https?:\/\/)?youtu\.be\/([^?&]+)/;
-      let match = value.match(watchPattern) || value.match(shortPattern);
+      const match = value.match(watchPattern) || value.match(shortPattern);
 
       if (match) {
         const videoId = match[1]

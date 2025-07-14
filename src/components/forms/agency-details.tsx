@@ -45,7 +45,6 @@ import {
     initUser,
     saveActivityLogsNotification,
     updateAgencyDetails,
-    updateUserAgency,
     upsertAgency,
 } from '@/lib/queries'
 import { Button } from '../ui/button'
@@ -202,12 +201,14 @@ const AgencyDetails = ({ data }: Props) => {
         //WIP: discontinue the subscription
         try {
             const response = await deleteAgency(data.id)
+            console.log(response)
             toast({
                 title: 'Agency deleted successfully',
                 description: 'Deleted your agency and all subaccounts'
             })
             router.refresh()
         } catch (error) {
+            console.log(error)
             toast({
                 variant: 'destructive',
                 title: 'OPPSSE!',

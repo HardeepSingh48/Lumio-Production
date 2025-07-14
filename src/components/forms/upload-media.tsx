@@ -1,7 +1,7 @@
 import React from 'react'
 import { z } from 'zod'
 import { useToast } from '../ui/use-toast'
-import { useRouter } from 'next/navigation'
+
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card'
@@ -22,7 +22,7 @@ type Props = {
 
 const UploadMediaForm = ({subaccountId}: Props) => {
     const {toast} = useToast()
-    const router = useRouter()
+ 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver:zodResolver(formSchema),
         mode:'onSubmit',

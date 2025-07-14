@@ -1,4 +1,4 @@
-import { db } from '@/lib/db'
+
 import { stripe } from '@/lib/stripe'
 import { NextResponse } from 'next/server'
 
@@ -6,7 +6,7 @@ export async function POST(req: Request) {
   const {
     subAccountConnectAccId,
     prices,
-    subaccountId,
+
   }: {
     subAccountConnectAccId: string
     prices: { recurring: boolean; productId: string }[]
@@ -89,10 +89,10 @@ export async function POST(req: Request) {
         },
       }
     )
-  } catch (error: any) {
-    console.log('🔴 Stripe Error:', error.message)
+  } catch (error) {
+    console.log('🔴 Stripe Error:', error)
     return new NextResponse(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: error }),
       {
         status: 500,
         headers: {

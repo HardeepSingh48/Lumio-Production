@@ -83,6 +83,7 @@ const TagCreator = ({ getSelectedTags, subAccountId, defaultTags }: Props) => {
                 subaccountId: subAccountId
             })
         } catch (error) {
+            console.error(error)
             toast({
                 variant: 'destructive',
                 title: 'Error creating the tag',
@@ -111,6 +112,7 @@ const TagCreator = ({ getSelectedTags, subAccountId, defaultTags }: Props) => {
 
             router.refresh()
         } catch (error) {
+            console.error(error)
             toast({
                 variant: 'destructive',
                 title: 'Could not delete tag',

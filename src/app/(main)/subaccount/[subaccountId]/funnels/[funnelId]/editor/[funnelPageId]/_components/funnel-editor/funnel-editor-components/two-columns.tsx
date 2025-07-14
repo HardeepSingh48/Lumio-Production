@@ -18,6 +18,7 @@ const TwoColumns = (props: Props) => {
 
   const handleOnDrop = (e: React.DragEvent, type: string) => {
     e.stopPropagation()
+    console.log('Dropped on type:', type)
     const componentType = e.dataTransfer.getData('componentType') as EditorBtns
     switch (componentType) {
       case 'text':

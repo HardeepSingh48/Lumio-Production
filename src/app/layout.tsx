@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { DM_Sans, Geist, Geist_Mono } from "next/font/google";
-import { Inter } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
+
 
 import { ThemeProvider } from "@/providers/theme-provider";
 import "./globals.css";
@@ -8,7 +8,7 @@ import ModalProvider from "@/providers/modal-provider";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as SonnarToaster } from "@/components/ui/sonner"
 
-const font = DM_Sans({ subsets: ["latin"] });
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

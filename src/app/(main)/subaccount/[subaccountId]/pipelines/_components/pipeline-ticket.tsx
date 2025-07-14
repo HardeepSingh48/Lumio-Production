@@ -59,10 +59,10 @@ const PipelineTicket = ({
   ticket,
 }: Props) => {
   const router = useRouter()
-  const { setOpen, data } = useModal()
+  const { setOpen } = useModal()
 
   const editNewTicket = (ticket: TicketWithTags[0]) => {
-    setAllTickets((tickets) =>
+    setAllTickets(() =>
       allTickets.map((t) => {
         if (t.id === ticket.id) {
           return ticket
@@ -123,11 +123,11 @@ const PipelineTicket = ({
       {(provided, snapshot) => {
         if (snapshot.isDragging) {
           const offset = { x: 300, y: 20 }
-          //@ts-ignore
+          //@ts-expect-error: Object is possibly 'null'.
           const x = provided.draggableProps.style?.left - offset.x
-          //@ts-ignore
+          //@ts-expect-error: Object is possibly 'null'.
           const y = provided.draggableProps.style?.top - offset.y
-          //@ts-ignore
+          //@ts-expect-error: Object is possibly 'null'.
           provided.draggableProps.style = {
             ...provided.draggableProps.style,
             top: y,

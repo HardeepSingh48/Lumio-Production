@@ -13,10 +13,10 @@ type Props = {
 }
 
 const Container = ({ element }: Props) => {
-    const { id, content, name, styles, type } = element
+    const { id, content, /*name,*/ styles, type } = element
     const { dispatch, state } = useEditor()
 
-    const handleOnDrop = (event: React.DragEvent, type: string) => {
+    const handleOnDrop = (event: React.DragEvent, {/*type: string*/}) => {
         event.stopPropagation()
         const componentType = event.dataTransfer.getData('componentType') as EditorBtns
 

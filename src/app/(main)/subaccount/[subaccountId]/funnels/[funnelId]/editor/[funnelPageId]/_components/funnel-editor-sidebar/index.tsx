@@ -14,7 +14,7 @@ type Props = {
 }
 
 const FunnelEditorSidebar = ({ subaccountId }: Props) => {
-  const { state, dispatch } = useEditor();
+  const { state } = useEditor();
   return (
     <Sheet
       open={true}

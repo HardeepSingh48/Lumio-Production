@@ -2,9 +2,9 @@ import { EditorBtns } from '@/lib/constants'
 import { TypeIcon } from 'lucide-react'
 import React from 'react'
 
-type Props = {}
 
-const TextPlaceholder = (props: Props) => {
+
+const TextPlaceholder = () => {
     const handleDragStart = (e: React.DragEvent, type: EditorBtns) => {
         if (type === null) return
         e.dataTransfer.setData('componentType', type)

@@ -4,7 +4,6 @@ import { clerkClient, currentUser } from "@clerk/nextjs/server"
 import { db } from "./db"
 import { Agency, Lane, Plan, Prisma, Role, SubAccount, Tag, Ticket, User } from "@prisma/client"
 import { redirect } from "next/navigation"
-import { create } from "domain"
 import { v4 } from "uuid"
 import { CreateFunnelFormSchema, CreateMediaType, UpsertFunnelPage } from "./types"
 import { z } from "zod"
@@ -237,6 +236,7 @@ export const initUser = async (newUser: Partial<User>) => {
 export const upsertAgency = async (agency: Agency, price?: Plan) => {
     if (!agency.companyEmail) {
         // console.log('upsertAgency: Missing companyEmail', agency);
+        console.log(price)
         return null;
     }
     try {
@@ -516,10 +516,10 @@ export const sendInvitation = async (role: Role, email: string, agencyId: string
                 role,
             },
         });
-    } catch (error: any) {
+    } catch (error) {
         console.error("Invitation Error:", error);
-        if (error?.errors) {
-            console.error("Clerk Errors:", error.errors); // <- Important!
+        if (error) {
+            console.error("Clerk Errors:", error); // <- Important!
         }
     }
     return response;

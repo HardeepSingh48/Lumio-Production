@@ -27,7 +27,7 @@ type Props = {
 }
 
 const PipelineInfoBar = ({ pipelineId, pipelines, subAccountId }: Props) => {
-  const { setOpen: setOpenModal, setClose } = useModal()
+  const { setOpen: setOpenModal } = useModal()
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState(pipelineId)
 

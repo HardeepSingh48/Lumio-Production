@@ -88,6 +88,7 @@ const ContactFormComponent = (props: Props) => {
       })
       await goToNextPage()
     } catch (error) {
+      console.log(error)
       toast({
         variant: 'destructive',
         title: 'Failed',

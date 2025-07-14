@@ -1,6 +1,6 @@
 import { db } from '@/lib/db'
 import { stripe } from '@/lib/stripe'
-import { tr } from 'date-fns/locale'
+
 import { NextResponse } from 'next/server'
 
 export async function POST(req: Request){
@@ -46,7 +46,7 @@ export async function POST(req: Request){
             )
             return NextResponse.json({
                 subscriptionId: subscription.id,
-                //@ts-ignore
+                //@ts-expect-error: Object is possibly 'null'.
                 clientSecret: subscription.latest_invoice.payment_intent.client_secret,
             })
 
@@ -68,7 +68,7 @@ export async function POST(req: Request){
             })
             return NextResponse.json({
                 subscriptionId: subscription.id,
-                //@ts-ignore
+                //@ts-expect-error: Object is possibly 'null'.
                 clientSecret: subscription.latest_invoice.payment_intent.client_secret
             })
         }

@@ -24,7 +24,6 @@ import {
   CommandList,
 } from '../ui/command'
 import Link from 'next/link'
-import { twMerge } from 'tailwind-merge'
 import { useModal } from '@/providers/modal-provider'
 import CustomModal from '../global/custom-modal'
 import SubAccountDetails from '../forms/subaccount-details'
@@ -43,7 +42,7 @@ type Props = {
 
 const MenuOptions = ({
   details,
-  id,
+
   sidebarLogo,
   sidebarOpt,
   subAccounts,

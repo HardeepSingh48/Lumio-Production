@@ -10,7 +10,7 @@ import { EditorElement, useEditor } from '@/providers/editor/editor-provider'
 import { EmbeddedCheckout, EmbeddedCheckoutProvider } from '@stripe/react-stripe-js'
 import clsx from 'clsx'
 import { Trash } from 'lucide-react'
-import { useRouter } from 'next/navigation'
+// import { useRouter } from 'next/navigation'
 import React, { useEffect, useMemo, useState } from 'react'
 
 type Props = {
@@ -18,8 +18,12 @@ type Props = {
 }
 
 const Checkout = (props: Props) => {
-  const { dispatch, state, subaccountId, funnelId, pageDetails } = useEditor()
-  const router = useRouter()
+  const { dispatch, state, subaccountId, funnelId } = useEditor()//edited code
+  //original code
+  // const { dispatch, state, subaccountId, funnelId, pageDetails } = useEditor()
+
+  // const router = useRouter()
+
   const [clientSecret, setClientSecret] = useState('')
   const [livePrices, setLivePrices] = useState([])
   const [subAccountConnectAccId, setSubAccountConnectAccId] = useState('')
@@ -88,7 +92,7 @@ const Checkout = (props: Props) => {
             className: 'z-[100000]',
             variant: 'destructive',
             title: 'Oppse!',
-            //@ts-ignore
+            //@ts-expect-error: Argument of type 'string' is not assignable to parameter of type 'string | undefined'.
             desrciption: error.message
 
           })
@@ -112,21 +116,21 @@ const Checkout = (props: Props) => {
       },
     })
   }
-  const goToNextPage = async () => {
-    if (!state.editor.liveMode) return
-    const funnelPages = await getFunnel(funnelId)
-    if (!funnelPages || !pageDetails) return
-    if (funnelPages.FunnelPages.length > pageDetails.order + 1) {
-      console.log(funnelPages.FunnelPages.length, pageDetails.order + 1)
-      const nextPage = funnelPages.FunnelPages.find(
-        (page) => page.order === pageDetails.order + 1
-      )
-      if (!nextPage) return
-      router.replace(
-        `${process.env.NEXT_PUBLIC_SCHEME}${funnelPages.subDomainName}.${process.env.NEXT_PUBLIC_DOMAIN}/${nextPage.pathName}`
-      )
-    }
-  }
+  // const goToNextPage = async () => {
+  //   if (!state.editor.liveMode) return
+  //   const funnelPages = await getFunnel(funnelId)
+  //   if (!funnelPages || !pageDetails) return
+  //   if (funnelPages.FunnelPages.length > pageDetails.order + 1) {
+  //     console.log(funnelPages.FunnelPages.length, pageDetails.order + 1)
+  //     const nextPage = funnelPages.FunnelPages.find(
+  //       (page) => page.order === pageDetails.order + 1
+  //     )
+  //     if (!nextPage) return
+  //     router.replace(
+  //       `${process.env.NEXT_PUBLIC_SCHEME}${funnelPages.subDomainName}.${process.env.NEXT_PUBLIC_DOMAIN}/${nextPage.pathName}`
+  //     )
+  //   }
+  // }
   const handleDeleteElement = () => {
     dispatch({
       type: 'DELETE_ELEMENT',

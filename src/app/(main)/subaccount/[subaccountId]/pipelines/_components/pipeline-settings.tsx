@@ -59,6 +59,7 @@ const PipelineSettings = ({
                     })
                     router.replace(`/subaccount/${subaccountId}/pipelines`)
                   } catch (error) {
+                    console.error(error)
                     toast({
                       variant: 'destructive',
                       title: 'Oppse!',

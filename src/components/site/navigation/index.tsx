@@ -1,15 +1,17 @@
-import { User } from '@clerk/nextjs/server'
+
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { UserButton } from '@clerk/nextjs'
 import { ModeToggle } from '@/components/global/mode-toggle'
+import { User } from '@clerk/nextjs/server'
 
 
 type Props = {
     user?: null | User
 }
 const Navigation = ({ user }: Props) => {
+    console.log(user)
     return (
         <div className='p-4 flex items-center justify-between relative'>
             <aside className='flex items-center gap-2'>

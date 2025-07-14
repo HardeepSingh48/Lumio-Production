@@ -25,10 +25,10 @@ export const subscriptionCreated = async (subscription: Stripe.Subscription, cus
             agencyId: agency.id,
             customerId,
             currentPeriodEndDate: new Date(subscription.current_period_end * 1000),
-            //@ts-ignore
+            //@ts-expect-error: Object is possibly 'null'.
             priceId: subscription.plan.id,
             subscriptionId: subscription.id,
-            //@ts-ignore
+            //@ts-expect-error: Object is possibly 'null'.
             plan: subscription.plan.id as keyof typeof Plan,
         };
 
@@ -42,7 +42,7 @@ export const subscriptionCreated = async (subscription: Stripe.Subscription, cus
             update: data,
         });
 
-        console.log(`🟢 Created Subscription for ${subscription.id}`);
+        console.log(`🟢 Created Subscription for ${subscription.id}` , "response:",res);
     } catch (error) {
         console.log("🔴 Error from Create action", error);
     }

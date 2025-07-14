@@ -48,6 +48,9 @@ const FunnelSteps = ({ funnel, funnelId, pages, subaccountId }: Props) => {
     //current chosen page
     const { draggableId } = event
     const value = pagesState.find((page) => page.id === draggableId)
+    if (value) {
+    console.log("")
+  }
   }
 
   const onDragEnd = (dropResult: DropResult) => {

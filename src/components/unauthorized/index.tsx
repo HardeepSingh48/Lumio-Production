@@ -1,9 +1,8 @@
 import Link from 'next/link'
 import React from 'react'
 
-type Props = {}
 
-const Unauthorized = (props: Props) => {
+const Unauthorized = () => {
   return (
     <div className='p-4 text-center w-screen flex justify-center items-center flex-col'>
         <h1 className='text-3xl md:text-6xl'> Unauthorized access!</h1>

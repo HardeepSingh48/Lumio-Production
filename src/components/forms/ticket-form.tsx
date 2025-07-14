@@ -18,7 +18,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
 import {
   Form,
   FormControl,
-  FormDescription,
+
   FormField,
   FormItem,
   FormLabel,
@@ -29,9 +29,9 @@ import { Textarea } from '../ui/textarea'
 import {
   Select,
   SelectContent,
-  SelectGroup,
+
   SelectItem,
-  SelectLabel,
+
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
@@ -101,7 +101,7 @@ const TicketForm = ({ getNewTicket, laneId, subaccountId }: Props) => {
 
       const fetchData = async () => {
         const response = await searchContacts(
-          //@ts-ignore
+          //@ts-expect-error: Object is possibly 'null'.
           defaultData.ticket?.Customer?.name
         )
         setContactList(response)
@@ -138,6 +138,7 @@ const TicketForm = ({ getNewTicket, laneId, subaccountId }: Props) => {
       if (response) getNewTicket(response)
       router.refresh()
     } catch (error) {
+      console.error(error)
       toast({
         variant: 'destructive',
         title: 'Oppse!',
@@ -287,13 +288,13 @@ const TicketForm = ({ getNewTicket, laneId, subaccountId }: Props) => {
                     className="h-9"
                     value={search}
                     onChangeCapture={async (value) => {
-                      //@ts-ignore
+                      //@ts-expect-error: Object is possibly 'null'.
                       setSearch(value.target.value)
                       if (saveTimerRef.current)
                         clearTimeout(saveTimerRef.current)
                       saveTimerRef.current = setTimeout(async () => {
                         const response = await searchContacts(
-                          //@ts-ignore
+                          //@ts-expect-error: Object is possibly 'null'.
                           value.target.value
                         )
                         setContactList(response)

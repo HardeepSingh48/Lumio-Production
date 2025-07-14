@@ -9,9 +9,9 @@ import TwoColumnsPlaceholder from './two-columns-placeholder'
 import ContactFormComponentPlaceholder from './contact-form-placeholder'
 import CheckoutPlaceholder from './chechout-placeholder'
 
-type Props = {}
 
-const ComponentsTab = (props: Props) => {
+
+const ComponentsTab = () => {
     const elements: {
         Component: React.ReactNode
         label: string
