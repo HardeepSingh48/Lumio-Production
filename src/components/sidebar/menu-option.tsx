@@ -35,7 +35,9 @@ type Props = {
   subAccounts: SubAccount[]
   sidebarOpt: AgencySidebarOption[] | SubAccountSidebarOption[]
   sidebarLogo: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   details: any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   user: any
   id: string
 }

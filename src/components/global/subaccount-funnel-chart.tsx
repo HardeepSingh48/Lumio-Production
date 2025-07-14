@@ -1,7 +1,7 @@
 'use client'
 import { DonutChart } from '@tremor/react'
 import React from 'react'
-
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Props = { data: any }
 
 const SubaccountFunnelChart = ({ data }: Props) => {
@@ -27,6 +27,7 @@ const customTooltip = ({
   payload,
   active,
 }: {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
   payload: any
   active: boolean
 }) => {
@@ -51,15 +52,18 @@ const customTooltip = ({
           </div>
         </div>
       </div>
-      {categoryPayload.payload.FunnelPages?.map((page: any) => (
-        <div
-          key={page.id}
-          className="dark:text-white/70 text-black flex justify-between items-center"
-        >
-          <small>{page.name}</small>
-          <small>{page.visits}</small>
-        </div>
-      ))}
+
+      {categoryPayload.payload.FunnelPages?.map(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (page: any) => (
+          <div
+            key={page.id}
+            className="dark:text-white/70 text-black flex justify-between items-center"
+          >
+            <small>{page.name}</small>
+            <small>{page.visits}</small>
+          </div>
+        ))}
     </div>
   )
 }

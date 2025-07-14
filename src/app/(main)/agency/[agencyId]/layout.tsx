@@ -26,7 +26,7 @@ const layout = async ({ children, params }: Props) => {
 
     if (user.privateMetadata.role !== 'AGENCY_OWNER' && user.privateMetadata.role !== 'AGENCY_ADMIN')
         return <Unauthorized />
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
     let allNoti: any = []
 
     const notifications = await getNotificationAndUser(verifiedAgencyId)

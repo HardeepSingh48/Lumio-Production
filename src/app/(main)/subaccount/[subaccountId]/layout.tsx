@@ -20,6 +20,7 @@ const SubaccountLayout = async ({ children, params }: Props) => {
     if (!user) {
         return redirect('/')
     }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let notifications: any = []
 
     if (!user.privateMetadata.role) {

@@ -20,6 +20,7 @@ export type NotificationWithUser =
     } & Notification)[]
   | undefined
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const __getUserWithAgencySubAccountPermissionsSidebarOptions = async (
     agencyId: string
   ) => {

@@ -1,19 +1,19 @@
-import { Decimal } from '@prisma/client/runtime/library';
+import { Decimal } from '@prisma/client/runtime/library'
 
-export function convertDecimals(obj: any): any {
+export function convertDecimals<T>(obj: T): T {
   if (Array.isArray(obj)) {
-    return obj.map(convertDecimals);
+    return obj.map(convertDecimals) as unknown as T
   } else if (obj && typeof obj === 'object') {
-    const newObj: any = {};
-    for (const key in obj) {
-      const value = obj[key];
+    const newObj: Record<string, unknown> = {}
+    for (const key in obj as object) {
+      const value = (obj as Record<string, unknown>)[key]
       if (value instanceof Decimal) {
-        newObj[key] = value.toNumber();
+        newObj[key] = value.toNumber()
       } else {
-        newObj[key] = convertDecimals(value);
+        newObj[key] = convertDecimals(value)
       }
     }
-    return newObj;
+    return newObj as T
   }
-  return obj;
+  return obj
 }

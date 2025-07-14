@@ -22,6 +22,7 @@ export type ModalData = {
 type ModalContextType = {
     data: ModalData
     isOpen: boolean
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     setOpen: (modal: React.ReactNode, fetchData?: () => Promise<any>) => void
     setClose: () => void
 }
@@ -29,7 +30,8 @@ type ModalContextType = {
 export const ModalContext = createContext<ModalContextType>({
     data: {},
     isOpen: false,
-    setOpen: (modal: React.ReactNode, fetchData?: () => Promise<any>) => { },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   setOpen: () => {},
     setClose: () => { },
 })
 
@@ -42,7 +44,7 @@ const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
     useEffect(() => {
         setIsMounted(true)
     }, [])
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const setOpen = async (modal: React.ReactNode, fetchData?: () => Promise<any>) => {
     if (modal) {
         if (fetchData) {

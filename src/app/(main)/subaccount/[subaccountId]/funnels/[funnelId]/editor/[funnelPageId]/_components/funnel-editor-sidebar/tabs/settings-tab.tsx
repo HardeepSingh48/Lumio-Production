@@ -41,6 +41,7 @@ import { Slider } from '@/components/ui/slider'
 const SettingsTab = () => {
   const { state, dispatch } = useEditor()
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleOnChanges = (e: any) => {
     const styleSettings = e.target.id
     const value = e.target.value
@@ -61,7 +62,7 @@ const SettingsTab = () => {
       },
     })
   }
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleChangeCustomValues = (e: any) => {
     const settingProperty = e.target.id
     let value = e.target.value

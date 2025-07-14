@@ -12,6 +12,7 @@ import Loading from '../global/loading'
 type Props = {
     title: string
     subTitle: string
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     apiCall: (values: z.infer<typeof ContactUserFormSchema>) => any
 
 }
