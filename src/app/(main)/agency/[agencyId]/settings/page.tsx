@@ -9,7 +9,7 @@ type Props = {
 }
 
 const SettingsPage = async ({ params }: Props) => {
-    const resolvedParams =  params // Await the params to resolve them
+
     const authUser = await currentUser()
     if (!authUser) return null
 
@@ -22,7 +22,7 @@ const SettingsPage = async ({ params }: Props) => {
     if (!userDetails) return null
     const agencyDetails = await db.agency.findUnique({
         where: {
-            id: resolvedParams.agencyId
+            id: params.agencyId
         },
         include: {
             SubAccount: true,
@@ -38,7 +38,7 @@ const SettingsPage = async ({ params }: Props) => {
             <AgencyDetails data={agencyDetails}/>
             <UserDetails
                 type="agency"
-                id={resolvedParams.agencyId}
+                id={params.agencyId}
                 subAccounts={subAccounts}
                 userData={userDetails}
                 />

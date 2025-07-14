@@ -18,7 +18,7 @@ const AllSubaccountsPage = async ({ params }: Props) => {
     const user = await getAuthUserDetails()
     if (!user) return
 
-    const resolvedParams = params
+
 
 
 
@@ -27,7 +27,7 @@ const AllSubaccountsPage = async ({ params }: Props) => {
             <div className='flex flex-col'>
                 <CreateSubaccountButton
                     user={user}
-                    id={resolvedParams.agencyId}
+                    id={params.agencyId}
                     className="w-[200px] self-end m-6"
                 />
                 <Command className='rounded-lg bg-transparent'>

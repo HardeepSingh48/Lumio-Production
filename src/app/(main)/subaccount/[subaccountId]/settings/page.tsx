@@ -10,7 +10,7 @@ type Props = {
 }
 
 const SubaccountSettingPage = async ({params}: Props) => {
-    const resolvedParams =  params
+
     const authUser = await currentUser()
 
     if(!authUser) return
@@ -22,7 +22,7 @@ const SubaccountSettingPage = async ({params}: Props) => {
     if(!userDetails) return
 
     const subAccount = await db.subAccount.findUnique({
-        where: { id: resolvedParams.subaccountId},
+        where: { id: params.subaccountId},
     })
     if(!subAccount) return 
 
@@ -47,7 +47,7 @@ const SubaccountSettingPage = async ({params}: Props) => {
                 
             <UserDetails
                 type='subaccount'
-                id={resolvedParams.subaccountId}
+                id={params.subaccountId}
                 subAccounts={subAccounts}
                 userData={userDetails}
                 />

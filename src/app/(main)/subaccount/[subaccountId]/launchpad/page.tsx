@@ -24,11 +24,10 @@ type Props = {
 }
 
 const LaunchPad = async ({ params, searchParams }: Props) => {
-  const resolvedSearchParams =  searchParams
-  const resolvedParams =  params
+
   const subaccountDetails = await db.subAccount.findUnique({
     where: {
-      id: resolvedParams.subaccountId,
+      id: params.subaccountId,
     },
   })
 
@@ -53,15 +52,15 @@ const LaunchPad = async ({ params, searchParams }: Props) => {
 
   let connectedStripeAccount = false
 
-  if (resolvedSearchParams.code) {
+  if (searchParams.code) {
     if (!subaccountDetails.connectAccountId) {
       try {
         const response = await stripe.oauth.token({
           grant_type: 'authorization_code',
-          code: resolvedSearchParams.code,
+          code: searchParams.code,
         })
         await db.subAccount.update({
-          where: { id: resolvedParams.subaccountId },
+          where: { id: params.subaccountId },
           data: { connectAccountId: response.stripe_user_id },
         })
         connectedStripeAccount = true

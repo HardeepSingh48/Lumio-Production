@@ -6,12 +6,12 @@ import FunnelEditor from '../(main)/subaccount/[subaccountId]/funnels/[funnelId]
 import { db } from '@/lib/db'
 
 const page = async ({params}: {params: { domain: string}}) => {
-  const resolvedParams =  params
+
 
   //This was the original code
-  // const domainData = await getDomainContent(resolvedParams.domain.slice(0,-1)) 
+  // const domainData = await getDomainContent(params.domain.slice(0,-1)) 
 
-  const domainData = await getDomainContent(resolvedParams.domain)
+  const domainData = await getDomainContent(params.domain)
   if(!domainData) return notFound()
 
   const pageData = domainData.FunnelPages.find((page) => !page.pathName)

@@ -17,10 +17,10 @@ type Props = {
 }
 
 const LaunchPadPage = async ({ params, searchParams }: Props) => {
-    const resolvedParams =  params;
-    const resolvedSearchParams =  searchParams
+
+
     const agencyDetails = await db.agency.findUnique({
-        where: { id: resolvedParams.agencyId },
+        where: { id: params.agencyId },
     })
     if (!agencyDetails) return
 
@@ -43,15 +43,15 @@ const LaunchPadPage = async ({ params, searchParams }: Props) => {
 
     let connectedStripeAccount = false
 
-    if (resolvedSearchParams.code) {
+    if (searchParams.code) {
         if (!agencyDetails.connectAccountId) {
             try {
                 const response = await stripe.oauth.token({
                     grant_type: 'authorization_code',
-                    code: resolvedSearchParams.code,
+                    code: searchParams.code,
                 })
                 await db.agency.update({
-                    where: { id: resolvedParams.agencyId },
+                    where: { id: params.agencyId },
                     data: { connectAccountId: response.stripe_user_id },
                 })
                 connectedStripeAccount = true
@@ -131,7 +131,7 @@ const LaunchPadPage = async ({ params, searchParams }: Props) => {
                             ) : (
                                 <Link
                                     className='bg-primary py-2 px-4 rounded-md text-white'
-                                    href={`/agency/${resolvedParams.agencyId}/settings`}
+                                    href={`/agency/${params.agencyId}/settings`}
                                 >Start</Link>
 
                             )}

@@ -21,14 +21,14 @@ type Props = {
 }
 
 const ContactPage = async ({ params }: Props) => {
-  const resolvedParams =  params
+
   type SubAccountWithContacts = SubAccount & {
     Contact: (Contact & { Ticket: Ticket[] })[]
   }
 
   const contacts = (await db.subAccount.findUnique({
     where: {
-      id: resolvedParams.subaccountId,
+      id: params.subaccountId,
     },
 
     include: {
@@ -66,7 +66,7 @@ const ContactPage = async ({ params }: Props) => {
   return (
     <BlurPage>
       <h1 className="text-4xl p-4">Contacts</h1>
-      <CraeteContactButton subaccountId={resolvedParams.subaccountId} />
+      <CraeteContactButton subaccountId={params.subaccountId} />
       <Table>
         <TableHeader>
           <TableRow>

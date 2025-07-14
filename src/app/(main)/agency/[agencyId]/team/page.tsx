@@ -12,12 +12,12 @@ type Props = {
 
 const TeamPage = async ({params}: Props) => {
 
-    const resolvedParams =  params
+
     const authUser = await currentUser()
     const teamMembers = await db.user.findMany({
         where: {
             Agency: {
-                id: resolvedParams.agencyId,
+                id: params.agencyId,
             },
         },
         include:{
@@ -29,7 +29,7 @@ const TeamPage = async ({params}: Props) => {
     if (!authUser) return null
     const agencyDetails = await db.agency.findUnique({
         where:{
-            id: resolvedParams.agencyId,
+            id: params.agencyId,
         },
         include: {
             SubAccount: true,

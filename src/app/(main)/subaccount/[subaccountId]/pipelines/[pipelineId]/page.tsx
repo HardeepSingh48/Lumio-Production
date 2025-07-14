@@ -15,19 +15,19 @@ type Props = {
 
 
 const PipelinePage = async ({ params }: Props) => {
-    const resolvedParams =  params;
-    const pipelineDetails = await getPipelineDetails(resolvedParams.pipelineId)
+
+    const pipelineDetails = await getPipelineDetails(params.pipelineId)
 
     if (!pipelineDetails) {
-        return redirect(`/subaccount/${resolvedParams.subaccountId}/pipelines`)
+        return redirect(`/subaccount/${params.subaccountId}/pipelines`)
     }
 
     const pipelines = await db.pipeline.findMany({
-        where: { subAccountId: resolvedParams.subaccountId },
+        where: { subAccountId: params.subaccountId },
     })
 
     const lanes = (await getLanesWithTicketAndTags(
-        resolvedParams.pipelineId
+        params.pipelineId
     )) as LaneDetail[]
 
     const safeLanes = convertDecimals(lanes);
@@ -39,8 +39,8 @@ const PipelinePage = async ({ params }: Props) => {
             <TabsList className='bg-transparent border-b-2 h-16 w-full 
         justify-between mb-4'>
                 <PipelineInforbar
-                    pipelineId={resolvedParams.pipelineId}
-                    subAccountId={resolvedParams.subaccountId}
+                    pipelineId={params.pipelineId}
+                    subAccountId={params.subaccountId}
                     pipelines={pipelines} />
                 <div>
                     <TabsTrigger
@@ -58,17 +58,17 @@ const PipelinePage = async ({ params }: Props) => {
                 <PipelineView
                     lanes={safeLanes}
                     pipelineDetails={safePipelineDetails}
-                    pipelineId={resolvedParams.pipelineId}
-                    subaccountId={resolvedParams.subaccountId}
+                    pipelineId={params.pipelineId}
+                    subaccountId={params.subaccountId}
                     updateLanesOrder={updateLanesOrder}
                     updateTicketsOrder={updateTicketsOrder}
                 />
             </TabsContent>
             <TabsContent value='settings'>
                 <PipelineSettings
-                    pipelineId={resolvedParams.pipelineId}
+                    pipelineId={params.pipelineId}
                     pipelines={pipelines}
-                    subaccountId={resolvedParams.subaccountId}
+                    subaccountId={params.subaccountId}
                 />
             </TabsContent>
         </Tabs>

@@ -20,7 +20,7 @@ type Props = {
 }
 
 const page = async ({ params }: Props) => {
-  const resolvedParams =  params
+
   const addOns = await stripe.products.list({
     ids: addOnProducts.map((product) => product.id),
     expand: ['data.default_price'],
@@ -28,7 +28,7 @@ const page = async ({ params }: Props) => {
 
   const agencySubscription = await db.agency.findUnique({
     where: {
-      id: resolvedParams.agencyId,
+      id: params.agencyId,
     },
     select: {
       customerId: true,
