@@ -12,7 +12,7 @@ type Props = {
 
 const TeamPage = async ({params}: Props) => {
 
-    const resolvedParams = await params
+    const resolvedParams =  params
     const authUser = await currentUser()
     const teamMembers = await db.user.findMany({
         where: {

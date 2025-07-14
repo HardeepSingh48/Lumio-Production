@@ -20,7 +20,7 @@ type Props = {
 }
 
 const page = async ({ params }: Props) => {
-  const resolvedParams = await params
+  const resolvedParams =  params
   const addOns = await stripe.products.list({
     ids: addOnProducts.map((product) => product.id),
     expand: ['data.default_price'],

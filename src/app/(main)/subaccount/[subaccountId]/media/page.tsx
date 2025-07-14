@@ -8,7 +8,7 @@ type Props = {
 }
 
 const MediaPage = async ({params}: Props) => {
-    const resolveParams = await params
+    const resolveParams =  params
 
     const data = await getMedia(resolveParams.subaccountId)
 

@@ -15,7 +15,7 @@ type Props = {
 
 
 const PipelinePage = async ({ params }: Props) => {
-    const resolvedParams = await params;
+    const resolvedParams =  params;
     const pipelineDetails = await getPipelineDetails(resolvedParams.pipelineId)
 
     if (!pipelineDetails) {

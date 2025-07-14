@@ -15,7 +15,7 @@ type Props = {
 }
 
 const Page = async ({params}: Props) => {
-    const resolvedParams = await params
+    const resolvedParams =  params
 
     const funnelPageDetails = await db.funnelPage.findFirst({
         where: {id: resolvedParams.funnelPageId}

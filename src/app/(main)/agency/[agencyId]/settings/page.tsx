@@ -9,7 +9,7 @@ type Props = {
 }
 
 const SettingsPage = async ({ params }: Props) => {
-    const resolvedParams = await params // Await the params to resolve them
+    const resolvedParams =  params // Await the params to resolve them
     const authUser = await currentUser()
     if (!authUser) return null
 

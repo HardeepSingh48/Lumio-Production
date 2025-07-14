@@ -13,7 +13,7 @@ type Props = {
 }
 
 const layout = async ({ children, params }: Props) => {
-    const { agencyId } = await params; // <-- Await params here
+    const { agencyId } = params; // <-- Await params here
     const user = await currentUser()
     const verifiedAgencyId = await verifyAndAcceptInvitation()
 

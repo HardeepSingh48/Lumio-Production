@@ -7,7 +7,7 @@ type Props = {
 }
 
 const Pipelines = async ({params}: Props) => {
-    const resolvedParams =await params
+    const resolvedParams = params
     const pipelineExists = await db.pipeline.findFirst({
         where: {subAccountId: resolvedParams.subaccountId},
     })

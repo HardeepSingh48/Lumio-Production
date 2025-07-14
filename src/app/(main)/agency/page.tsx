@@ -10,7 +10,7 @@ type Props = {
 }
 
 const Page = async ({ searchParams }: Props) => {
-  const params = await searchParams
+  const params =  searchParams
   const agencyId = await verifyAndAcceptInvitation()
   // console.log("AgencyId:",agencyId)
 

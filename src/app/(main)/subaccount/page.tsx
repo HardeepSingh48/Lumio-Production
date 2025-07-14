@@ -10,7 +10,7 @@ type Props = {
 
 const SubAccountMainPage = async ({searchParams}: Props) => {
   const agencyId = await verifyAndAcceptInvitation()
-  const resolvedSearchParams = await searchParams;
+  const resolvedSearchParams =  searchParams;
 
   // console.log("agencyId", agencyId)
   if(!agencyId){

@@ -6,7 +6,7 @@ import FunnelEditor from '../(main)/subaccount/[subaccountId]/funnels/[funnelId]
 import { db } from '@/lib/db'
 
 const page = async ({params}: {params: { domain: string}}) => {
-  const resolvedParams = await params
+  const resolvedParams =  params
 
   //This was the original code
   // const domainData = await getDomainContent(resolvedParams.domain.slice(0,-1)) 

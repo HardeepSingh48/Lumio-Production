@@ -13,7 +13,7 @@ type Props = {
 }
 
 const FunnelPage = async ({ params }: Props) => {
-    const resolvedParams = await params
+    const resolvedParams =  params
     const funnelPages = await getFunnel(resolvedParams.funnelId)
     if (!funnelPages)
         return redirect(`/subaccount/${resolvedParams.subaccountId}/funnels`)

@@ -21,7 +21,7 @@ type Props = {
 }
 
 const ContactPage = async ({ params }: Props) => {
-  const resolvedParams = await params
+  const resolvedParams =  params
   type SubAccountWithContacts = SubAccount & {
     Contact: (Contact & { Ticket: Ticket[] })[]
   }

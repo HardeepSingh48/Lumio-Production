@@ -10,7 +10,7 @@ type Props = {
 }
 
 const SubaccountSettingPage = async ({params}: Props) => {
-    const resolvedParams = await params
+    const resolvedParams =  params
     const authUser = await currentUser()
 
     if(!authUser) return

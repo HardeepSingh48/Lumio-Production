@@ -17,8 +17,8 @@ type Props = {
 }
 
 const LaunchPadPage = async ({ params, searchParams }: Props) => {
-    const resolvedParams = await params;
-    const resolvedSearchParams = await searchParams
+    const resolvedParams =  params;
+    const resolvedSearchParams =  searchParams
     const agencyDetails = await db.agency.findUnique({
         where: { id: resolvedParams.agencyId },
     })
