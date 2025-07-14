@@ -23,12 +23,13 @@ import {
 import Link from 'next/link'
 import React from 'react'
 
-const Page = async ({
-  params,
-}: {
+type PageProps = {
   params: { agencyId: string }
-  searchParams?: { code?: string }
-}) => {
+
+}
+
+
+const Page = async ({ params }: PageProps) => {
   let currency = 'USD'
   let sessions
   let totalClosedSessions
