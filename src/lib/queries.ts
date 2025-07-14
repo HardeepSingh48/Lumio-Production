@@ -236,11 +236,11 @@ export const initUser = async (newUser: Partial<User>) => {
 
 export const upsertAgency = async (agency: Agency, price?: Plan) => {
     if (!agency.companyEmail) {
-        console.log('upsertAgency: Missing companyEmail', agency);
+        // console.log('upsertAgency: Missing companyEmail', agency);
         return null;
     }
     try {
-        console.log('upsertAgency: Attempting upsert with:', agency);
+        // console.log('upsertAgency: Attempting upsert with:', agency);
         const agencyDetails = await db.agency.upsert({
             where: {
                 id: agency.id,

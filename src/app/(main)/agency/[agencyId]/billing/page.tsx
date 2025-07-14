@@ -59,7 +59,7 @@ const page = async ({ params }: Props) => {
     }))
   ]
 
-  console.log(agencySubscription)
+  // console.log(agencySubscription)
   return (
     <>
     <SubscriptionHelper
@@ -116,9 +116,9 @@ const page = async ({ params }: Props) => {
             customerId={agencySubscription?.customerId || ''}
             key={addOn.id}
             amt={
-              //@ts-ignore
+              //@ts-expect-error: this is a workaround for the error
               addOn.default_price?.unit_amount
-                ? //@ts-ignore
+                ? //@ts-expect-error: this is a workaround for the error
                 `$${addOn.default_price.unit_amount / 100}`
                 : '$0'
             }

@@ -1,7 +1,7 @@
 import AgencyDetails from '@/components/forms/agency-details'
 import { getAuthUserDetails, verifyAndAcceptInvitation } from '@/lib/queries'
 import { currentUser } from '@clerk/nextjs/server'
-import { Plan } from '@prisma/client'
+
 import { redirect } from 'next/navigation'
 import React from 'react'
 
@@ -12,7 +12,7 @@ type Props = {
 const Page = async ({ searchParams }: Props) => {
   const params = await searchParams
   const agencyId = await verifyAndAcceptInvitation()
-  console.log("AgencyId:",agencyId)
+  // console.log("AgencyId:",agencyId)
 
   //get the users details
   const user = await getAuthUserDetails()

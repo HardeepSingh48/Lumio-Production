@@ -98,11 +98,11 @@ const AgencyDetails = ({ data }: Props) => {
 
     const handleSubmit = async (values: z.infer<typeof FormSchema>) => {
         try {
-            console.log('Form values on submit:', values);
-            console.log("Form field values:");
-            Object.entries(values).forEach(([key, value]) => {
-                console.log(`${key}:`, typeof value, value);
-            });
+            // console.log('Form values on submit:', values);
+            // console.log("Form field values:");
+            // Object.entries(values).forEach(([key, value]) => {
+            //     console.log(`${key}:`, typeof value, value);
+            // });
             // let newUserData;
             let custId;
             if (!data?.id) {
@@ -149,7 +149,7 @@ const AgencyDetails = ({ data }: Props) => {
             if (!data?.customerId && !custId) return
             
             
-                console.log('Submitting agency with:')
+                // console.log('Submitting agency with:')
                 const response = await upsertAgency({
                     id: data?.id ? data.id : v4(),
                     address: values.address,
@@ -168,7 +168,7 @@ const AgencyDetails = ({ data }: Props) => {
                     connectAccountId: '',
                     goal: 5,
                 });
-                console.log('createdAgency:', response)
+                // console.log('createdAgency:', response)
                 toast({
                     title: 'Created Agency',
                 })

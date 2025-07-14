@@ -51,28 +51,29 @@ const FunnelProductsTable: React.FC<FunnelProductsTableProps> = ({
 
   const handleAddProduct = async (product: Stripe.Product) => {
     const productIdExists = liveProducts.find(
-      //@ts-ignore
+      // @ts-expect-error: Type 'string' is not assignable to type 'string | undefined'.
       (prod) => prod.productId === product.default_price.id
     )
-    productIdExists
-      ? setLiveProducts(
-          liveProducts.filter(
-            (prod) =>
-              prod.productId !==
-              //@ts-ignore
-              product.default_price?.id
-          )
-        )
-      : //@ts-ignore
-        setLiveProducts([
-          ...liveProducts,
-          {
-            //@ts-ignore
-            productId: product.default_price.id as string,
-            //@ts-ignore
-            recurring: !!product.default_price.recurring,
-          },
-        ])
+if (productIdExists) {
+  setLiveProducts(
+    liveProducts.filter(
+      (prod) =>
+        prod.productId !==
+        // @ts-expect-error: Type 'string' is not assignable to type 'string | undefined'.
+        product.default_price?.id
+    )
+  )
+} else {
+  setLiveProducts([
+    ...liveProducts,
+    {
+      // @ts-expect-error: Type 'string' is not assignable to type 'string | undefined'.
+      productId: product.default_price.id as string,
+      // @ts-expect-error: Type 'string' is not assignable to type 'string | undefined'.
+      recurring: !!product.default_price.recurring,
+    },
+  ])
+}
   }
   return (
     <>
@@ -93,7 +94,7 @@ const FunnelProductsTable: React.FC<FunnelProductsTableProps> = ({
                 <Input
                   defaultChecked={
                     !!liveProducts.find(
-                      //@ts-ignore
+                      // @ts-expect-error: Type 'string' is not assignable to type 'string | undefined'.
                       (prod) => prod.productId === product.default_price.id
                     )
                   }
@@ -113,14 +114,14 @@ const FunnelProductsTable: React.FC<FunnelProductsTableProps> = ({
               <TableCell>{product.name}</TableCell>
               <TableCell>
                 {
-                  //@ts-ignore
+                  // @ts-expect-error: Type 'string' is not assignable to type 'string | undefined'.
                   product.default_price?.recurring ? 'Recurring' : 'One Time'
                 }
               </TableCell>
               <TableCell className="text-right">
                 $
                 {
-                  //@ts-ignore
+                  // @ts-expect-error: Type 'string' is not assignable to type 'string | undefined'.
                   product.default_price?.unit_amount / 100
                 }
               </TableCell>

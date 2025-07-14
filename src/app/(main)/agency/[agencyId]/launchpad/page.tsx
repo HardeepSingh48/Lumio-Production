@@ -56,7 +56,7 @@ const LaunchPadPage = async ({ params, searchParams }: Props) => {
                 })
                 connectedStripeAccount = true
             } catch (error) {
-                console.log('🔴 Could not connect stripe account')
+                console.log('🔴 Could not connect stripe account',error)
             }
         }
     }
@@ -66,7 +66,7 @@ const LaunchPadPage = async ({ params, searchParams }: Props) => {
                 <Card className='border-none'>
                     <CardHeader>
 
-                        <CardTitle>Let's get Started</CardTitle>
+                        <CardTitle>Let&apos;s get Started</CardTitle>
                         <CardDescription>
                             Follow the steps to get your account setup.
                         </CardDescription>
