@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation'
 import React from 'react'
 
 type Props = {
-  searchParams: Promise<{ plan?: string; state?: string,code?: string }>
+  searchParams: { plan?: string; state?: string,code?: string }
 }
 
 const Page = async ({ searchParams }: Props) => {

@@ -8,7 +8,7 @@ import { columns } from './columns'
 import FunnelsDataTable from './data-table'
 import FunnelForm from '@/components/forms/funnel-form'
 
-const Funnels = async ({ params }: { params: Promise<{ subaccountId: string }> }) => {
+const Funnels = async ({ params }: { params: { subaccountId: string } }) => {
   const resolvedParams = await params
   const funnels = await getFunnels(resolvedParams.subaccountId)
   if (!funnels) return null

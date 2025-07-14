@@ -16,7 +16,7 @@ import clsx from 'clsx'
 import SubscriptionHelper from './_components/subscription-helper'
 
 type Props = {
-  params: Promise<{ agencyId: string }>
+  params: { agencyId: string }
 }
 
 const page = async ({ params }: Props) => {

@@ -6,7 +6,7 @@ import { currentUser } from '@clerk/nextjs/server'
 import React from 'react'
 
 type Props = {
-    params: Promise<{ subaccountId: string}>
+    params: { subaccountId: string}
 }
 
 const SubaccountSettingPage = async ({params}: Props) => {

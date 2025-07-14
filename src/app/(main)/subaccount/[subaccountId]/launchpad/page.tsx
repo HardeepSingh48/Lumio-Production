@@ -16,11 +16,11 @@ import Link from 'next/link'
 import React from 'react'
 
 type Props = {
-  searchParams: Promise<{
+  searchParams: {
     state: string
     code: string
-  }>
-  params: Promise<{ subaccountId: string }>
+  }
+  params: { subaccountId: string }
 }
 
 const LaunchPad = async ({ params, searchParams }: Props) => {

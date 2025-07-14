@@ -10,7 +10,7 @@ import PipelineView from '../_components/pipeline-view';
 import { convertDecimals } from '@/utils/convertDecimals';
 
 type Props = {
-    params: Promise<{ subaccountId: string; pipelineId: string }>
+    params: { subaccountId: string; pipelineId: string }
 }
 
 

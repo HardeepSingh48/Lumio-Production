@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation'
 import React from 'react'
 
 type Props = {
-    params: Promise<{subaccountId:string}>
+    params: {subaccountId:string}
 }
 
 const Pipelines = async ({params}: Props) => {

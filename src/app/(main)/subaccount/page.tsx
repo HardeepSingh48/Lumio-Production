@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation';
 import React from 'react'
 
 type Props = {
-  searchParams: Promise<{ state: string; code : string}>
+  searchParams: { state: string; code : string}
 }
 
 const SubAccountMainPage = async ({searchParams}: Props) => {

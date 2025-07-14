@@ -5,7 +5,7 @@ import React from 'react'
 import FunnelEditor from '../(main)/subaccount/[subaccountId]/funnels/[funnelId]/editor/[funnelPageId]/_components/funnel-editor'
 import { db } from '@/lib/db'
 
-const page = async ({params}: {params: Promise<{ domain: string}>}) => {
+const page = async ({params}: {params: { domain: string}}) => {
   const resolvedParams = await params
 
   //This was the original code

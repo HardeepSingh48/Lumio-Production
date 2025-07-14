@@ -9,11 +9,11 @@ import Link from 'next/link'
 import React from 'react'
 
 type Props = {
-    params: Promise<{
+    params: {
         agencyId: string
 
-    }>
-    searchParams: Promise<{ code: string }>
+    }
+    searchParams: { code: string }
 }
 
 const LaunchPadPage = async ({ params, searchParams }: Props) => {

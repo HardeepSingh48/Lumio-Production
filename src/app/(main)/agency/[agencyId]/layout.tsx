@@ -9,7 +9,7 @@ import React from 'react'
 
 type Props = {
     children: React.ReactNode
-    params: Promise<{ agencyId: string }> // <-- Make params a Promise
+    params: { agencyId: string } // <-- Make params a Promise
 }
 
 const layout = async ({ children, params }: Props) => {

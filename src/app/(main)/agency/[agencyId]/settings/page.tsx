@@ -5,7 +5,7 @@ import { currentUser } from '@clerk/nextjs/server'
 import React from 'react'
 
 type Props = {
-    params: Promise<{ agencyId: string }>
+    params: { agencyId: string }
 }
 
 const SettingsPage = async ({ params }: Props) => {

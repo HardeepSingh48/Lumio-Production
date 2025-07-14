@@ -25,7 +25,7 @@ import React from 'react'
 
 type PageProps = {
   params: { agencyId: string }
-
+  searchParams?: { code?: string }
 }
 
 

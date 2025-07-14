@@ -9,7 +9,7 @@ import React from 'react'
 
 type Props = {
     children: React.ReactNode;
-    params: Promise<{ subaccountId: string }>;
+    params: { subaccountId: string }
 }
 
 const SubaccountLayout = async ({ children, params }: Props) => {

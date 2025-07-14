@@ -7,11 +7,11 @@ import FunnelEditorSidebar from './_components/funnel-editor-sidebar'
 import FunnelEditor from './_components/funnel-editor'
 
 type Props = {
-    params: Promise<{
+    params: {
         subaccountId:string
         funnelId: string
         funnelPageId : string
-    }>
+    }
 }
 
 const Page = async ({params}: Props) => {

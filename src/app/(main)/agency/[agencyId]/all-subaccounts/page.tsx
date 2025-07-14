@@ -11,7 +11,7 @@ import DeleteButton from './_components/delete-button'
 import CreateSubaccountButton from './_components/create-subaccount-btn'
 
 type Props = {
-    params: Promise<{ agencyId: string }>
+    params: { agencyId: string }
 }
 
 const AllSubaccountsPage = async ({ params }: Props) => {

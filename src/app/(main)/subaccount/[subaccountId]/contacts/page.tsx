@@ -17,7 +17,7 @@ import CraeteContactButton from './create-contact-btn'
 
 
 type Props = {
-  params: Promise<{ subaccountId: string }>
+  params: { subaccountId: string }
 }
 
 const ContactPage = async ({ params }: Props) => {

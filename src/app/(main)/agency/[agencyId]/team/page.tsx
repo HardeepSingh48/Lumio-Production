@@ -7,7 +7,7 @@ import { columns } from './columns'
 import SendInvitation from '@/components/forms/send-invitation'
 
 type Props = {
-    params: Promise<{ agencyId: string }>
+    params: { agencyId: string }
 }
 
 const TeamPage = async ({params}: Props) => {
