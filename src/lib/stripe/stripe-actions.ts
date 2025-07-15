@@ -25,10 +25,10 @@ export const subscriptionCreated = async (
       agencyId: agency.id,
       customerId,
       currentPeriodEndDate: new Date(subscription.current_period_end * 1000),
-      //@ts-ignore
+      //@ts-expect-error: Type 'string' is not assignable to type 'string | undefined'.
       priceId: subscription.plan.id,
-      subscritiptionId: subscription.id,
-      //@ts-ignore
+      subscriptionId: subscription.id,
+      //@ts-expect-error: Type 'string' is not assignable to type 'string | undefined'.
       plan: subscription.plan.id,
     }
 
