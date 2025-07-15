@@ -21,7 +21,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Plura",
+  title: "Lumio",
   description: "All in one agency solution ",
 };
 

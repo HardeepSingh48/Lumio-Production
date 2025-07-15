@@ -22,7 +22,7 @@ export default async function Home() {
         <p className="text-center mt-6 md:mt-10 text-base md:text-lg">Run your agency, in one place</p>
         <div className="bg-gradient-to-r from-primary to-secondary-foreground text-transparent bg-clip-text relative mb-10 md:mb-14">
           <h1 className="text-9xl font-bold text-center md:text-[300px]">
-            Plura
+            Lumio
           </h1>
         </div>
 

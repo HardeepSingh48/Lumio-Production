@@ -20,7 +20,7 @@ const CircleProgress = ({ description, value = 0 }: Props) => {
       </ProgressCircle>
       <div>
         <b>Closing Rate</b>
-        <p className="text-muted-foreground">{description}</p>
+        <div className="text-muted-foreground">{description}</div>
       </div>
     </div>
   )

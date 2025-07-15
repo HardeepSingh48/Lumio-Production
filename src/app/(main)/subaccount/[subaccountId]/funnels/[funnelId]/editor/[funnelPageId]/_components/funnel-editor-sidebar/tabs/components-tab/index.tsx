@@ -67,7 +67,7 @@ const ComponentsTab = () => {
         <Accordion
             type='multiple'
             className='w-full'
-            defaultValue={['layout', 'element']}
+            defaultValue={['Layout', 'Elements']}
         >
             <AccordionItem
                 value='Layout'
