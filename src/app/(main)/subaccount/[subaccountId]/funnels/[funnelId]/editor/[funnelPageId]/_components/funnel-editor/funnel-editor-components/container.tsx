@@ -191,6 +191,7 @@ const Container = ({ element }: Props) => {
             }
         })
     }
+    // console.log('Container styles', styles)
 
     return (
         <div style={styles} className={clsx('relative p-4 transition-all group', {

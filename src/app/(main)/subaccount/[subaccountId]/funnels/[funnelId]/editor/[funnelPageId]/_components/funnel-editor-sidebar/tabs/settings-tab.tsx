@@ -35,6 +35,12 @@ import {
 } from '@/components/ui/select'
 import { useEditor } from '@/providers/editor/editor-provider'
 import { Slider } from '@/components/ui/slider'
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipProvider,
+} from '@/components/ui/tooltip';
 
 
 
@@ -44,7 +50,16 @@ const SettingsTab = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleOnChanges = (e: any) => {
     const styleSettings = e.target.id
-    const value = e.target.value
+    let value = e.target.value
+
+    if (styleSettings === 'backgroundImage') {
+      const trimmed = value.trim()
+
+      if (!trimmed.startsWith('url(')) {
+        value = `url('${trimmed}')`
+      }
+    }
+
     const styleObject = {
       [styleSettings]: value,
     }
@@ -62,7 +77,7 @@ const SettingsTab = () => {
       },
     })
   }
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleChangeCustomValues = (e: any) => {
     const settingProperty = e.target.id
     let value = e.target.value
@@ -479,7 +494,12 @@ const SettingsTab = () => {
                 className="!border-y-0 rounded-none !border-r-0 mr-2"
                 id="backgroundImage"
                 onChange={handleOnChanges}
-                value={state.editor.selectedElement.styles.backgroundImage}
+                value={
+                  state.editor.selectedElement.styles.backgroundImage
+                    ?.replace(/^url\(['"]?/, '') // remove url('
+                    ?.replace(/['"]?\)$/, '')    // remove ')
+                  ?? ''
+                }
               />
             </div>
           </div>
@@ -497,26 +517,46 @@ const SettingsTab = () => {
               value={state.editor.selectedElement.styles.backgroundSize?.toString()}
             >
               <TabsList className="flex items-center flex-row justify-between border-[1px] rounded-md bg-transparent h-fit gap-4">
-                <TabsTrigger
-                  value="cover"
-                  className="w-10 h-10 p-0 data-[state=active]:bg-muted"
-                >
-                  <ChevronsLeftRightIcon size={18} />
-                </TabsTrigger>
-                <TabsTrigger
-                  value="contain"
-                  className="w-10 h-10 p-0 data-[state=active]:bg-muted"
-                >
-                  <AlignVerticalJustifyCenter size={22} />
-                </TabsTrigger>
-                <TabsTrigger
-                  value="auto"
-                  className="w-10 h-10 p-0 data-[state=active]:bg-muted"
-                >
-                  <LucideImageDown size={18} />
-                </TabsTrigger>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <TabsTrigger
+                        value="cover"
+                        className="w-10 h-10 p-0 data-[state=active]:bg-muted"
+                      >
+                        <ChevronsLeftRightIcon size={18} />
+                      </TabsTrigger>
+                    </TooltipTrigger>
+                    <TooltipContent className="text-xs">Cover – fill the container</TooltipContent>
+                  </Tooltip>
+
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <TabsTrigger
+                        value="contain"
+                        className="w-10 h-10 p-0 data-[state=active]:bg-muted"
+                      >
+                        <AlignVerticalJustifyCenter size={22} />
+                      </TabsTrigger>
+                    </TooltipTrigger>
+                    <TooltipContent className="text-xs">Contain – fit without cropping</TooltipContent>
+                  </Tooltip>
+
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <TabsTrigger
+                        value="auto"
+                        className="w-10 h-10 p-0 data-[state=active]:bg-muted"
+                      >
+                        <LucideImageDown size={18} />
+                      </TabsTrigger>
+                    </TooltipTrigger>
+                    <TooltipContent className="text-xs z-[9999]">Auto – use image&apos;s original size</TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </TabsList>
             </Tabs>
+
           </div>
         </AccordionContent>
       </AccordionItem>
@@ -539,39 +579,50 @@ const SettingsTab = () => {
             value={state.editor.selectedElement.styles.justifyContent}
           >
             <TabsList className="flex items-center flex-row justify-between border-[1px] rounded-md bg-transparent h-fit gap-4">
-              <TabsTrigger
-                value="space-between"
-                className="w-10 h-10 p-0 data-[state=active]:bg-muted"
-              >
-                <AlignHorizontalSpaceBetween size={18} />
-              </TabsTrigger>
-              <TabsTrigger
-                value="space-evenly"
-                className="w-10 h-10 p-0 data-[state=active]:bg-muted"
-              >
-                <AlignHorizontalSpaceAround size={18} />
-              </TabsTrigger>
-              <TabsTrigger
-                value="center"
-                className="w-10 h-10 p-0 data-[state=active]:bg-muted"
-              >
-                <AlignHorizontalJustifyCenterIcon size={18} />
-              </TabsTrigger>
-              <TabsTrigger
-                value="start"
-                className="w-10 h-10 p-0 data-[state=active]:bg-muted "
-              >
-                <AlignHorizontalJustifyStart size={18} />
-              </TabsTrigger>
-              <TabsTrigger
-                value="end"
-                className="w-10 h-10 p-0 data-[state=active]:bg-muted "
-              >
-                <AlignHorizontalJustifyEndIcon size={18} />
-              </TabsTrigger>
+              {[
+                {
+                  value: 'space-between',
+                  icon: <AlignHorizontalSpaceBetween size={18} />,
+                  label: 'Space between',
+                },
+                {
+                  value: 'space-evenly',
+                  icon: <AlignHorizontalSpaceAround size={18} />,
+                  label: 'Space evenly',
+                },
+                {
+                  value: 'center',
+                  icon: <AlignHorizontalJustifyCenterIcon size={18} />,
+                  label: 'Center',
+                },
+                {
+                  value: 'start',
+                  icon: <AlignHorizontalJustifyStart size={18} />,
+                  label: 'Start',
+                },
+                {
+                  value: 'end',
+                  icon: <AlignHorizontalJustifyEndIcon size={18} />,
+                  label: 'End',
+                },
+              ].map(({ value, icon, label }) => (
+                <Tooltip key={value}>
+                  <TooltipTrigger asChild>
+                    <TabsTrigger
+                      value={value}
+                      className="w-10 h-10 p-0 data-[state=active]:bg-muted"
+                    >
+                      {icon}
+                    </TabsTrigger>
+                  </TooltipTrigger>
+                  <TooltipContent side="top" sideOffset={8} className="z-[9999] text-xs">
+                    {label}
+                  </TooltipContent>
+                </Tooltip>
+              ))}
             </TabsList>
           </Tabs>
-          <Label className="text-muted-foreground">Align Items</Label>
+          <Label className="text-muted-foreground pt-3 pb-3">Align Items</Label>
           <Tabs
             onValueChange={(e) =>
               handleOnChanges({
@@ -584,26 +635,41 @@ const SettingsTab = () => {
             value={state.editor.selectedElement.styles.alignItems}
           >
             <TabsList className="flex items-center flex-row justify-between border-[1px] rounded-md bg-transparent h-fit gap-4">
-              <TabsTrigger
-                value="center"
-                className="w-10 h-10 p-0 data-[state=active]:bg-muted"
-              >
-                <AlignVerticalJustifyCenter size={18} />
-              </TabsTrigger>
-              <TabsTrigger
-                value="normal"
-                className="w-10 h-10 p-0 data-[state=active]:bg-muted "
-              >
-                <AlignVerticalJustifyStart size={18} />
-              </TabsTrigger>
+              {[
+                {
+                  value: 'center',
+                  icon: <AlignVerticalJustifyCenter size={18} />,
+                  label: 'Center',
+                },
+                {
+                  value: 'normal',
+                  icon: <AlignVerticalJustifyStart size={18} />,
+                  label: 'Start',
+                },
+              ].map(({ value, icon, label }) => (
+                <Tooltip key={value}>
+                  <TooltipTrigger asChild>
+                    <TabsTrigger
+                      value={value}
+                      className="w-10 h-10 p-0 data-[state=active]:bg-muted"
+                    >
+                      {icon}
+                    </TabsTrigger>
+                  </TooltipTrigger>
+                  <TooltipContent side="top" sideOffset={8} className="z-[9999] text-xs">
+                    {label}
+                  </TooltipContent>
+                </Tooltip>
+              ))}
             </TabsList>
           </Tabs>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 p-3">
             <Input
               className="h-4 w-4"
               placeholder="px"
               type="checkbox"
               id="display"
+              checked={state.editor.selectedElement.styles.display === 'flex'}
               onChange={(va) => {
                 handleOnChanges({
                   target: {
