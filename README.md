@@ -1,4 +1,4 @@
-# Plura SaaS
+# Lumio SaaS
 
 > A modern SaaS starter built with **Next.js** (App Router), designed to help you launch product ideas quickly. Easily customize UI, integrate APIs, and deploy globally on **Vercel**.
 
@@ -6,10 +6,10 @@
 
 ## 🔗 Quick Links
 
-**Live App:** https://pluraproductionsaas.vercel.app/
+**Live App:** https://Lumioproductionsaas.vercel.app/
 
 
-**Repository:** [github.com/HardeepSingh48/Plura-Saas](https://github.com/HardeepSingh48/Plura-Saas)
+**Repository:** [github.com/HardeepSingh48/Lumio-Saas](https://github.com/HardeepSingh48/Lumio-Saas)
 
 ---
 
@@ -27,7 +27,7 @@
 ## 📁 Project Structure (high-level)
 
 ```
-Plura-Saas/
+Lumio-Saas/
 ├─ app/              # App Router entrypoints, routes, layouts, pages
 │  ├─ page.tsx       # Landing / root page (edit & save to auto‑refresh)
 │  └─ ...
@@ -46,8 +46,8 @@ Plura-Saas/
 Clone & install dependencies:
 
 ```bash
-git clone https://github.com/HardeepSingh48/Plura-Saas.git
-cd Plura-Saas
+git clone https://github.com/HardeepSingh48/Lumio-Saas.git
+cd Lumio-Saas
 
 # install packages
 npm install        # or: yarn install | pnpm install | bun install
@@ -110,11 +110,11 @@ By default this will serve the compiled app on `http://localhost:3000` unless ov
 
 ## ☁ Deploy on Vercel (Recommended)
 
-The fastest way to get Plura SaaS live is via **Vercel**:
+The fastest way to get Lumio SaaS live is via **Vercel**:
 
 1. Push your repo to GitHub (already done ✅).
 2. Go to Vercel and **Import Project**.
-3. Select the `Plura-Saas` repo.
+3. Select the `Lumio-Saas` repo.
 4. Set any required **Environment Variables** in the Vercel dashboard.
 5. Click **Deploy**.
 
