@@ -23,6 +23,20 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Lumio",
   description: "All in one agency solution ",
+  icons: {
+    icon: [
+      {
+        media: "(prefers-color-scheme: light)",
+        url: "/assets/plura-logo.svg",
+        href: "/assets/plura-logo.svg",
+      },
+      {
+        media: "(prefers-color-scheme: dark)",
+        url: "/assets/plura-logo.svg",
+        href: "/assets/plura-logo.svg",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
