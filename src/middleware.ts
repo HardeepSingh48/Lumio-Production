@@ -23,9 +23,9 @@ export default clerkMiddleware(async (auth, req) => {
   }
 
   // Redirect auth pages to /agency
-  if (url.pathname === '/sign-in' || url.pathname === '/sign-up') {
-    return NextResponse.redirect(new URL(`/agency/sign-in`, req.url));
-  }
+if ((url.pathname === '/sign-in' || url.pathname === '/sign-up') && !req.headers.get('sec-fetch-dest')?.includes('iframe')) {
+  return NextResponse.redirect(new URL(`/agency/sign-in`, req.url));
+}
 
   // Rewrite home or root /site
   if (
